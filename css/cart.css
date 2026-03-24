@@ -1,0 +1,208 @@
+/* ================================== Cart Page Layout ==================================*/
+.cart-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 10% 6rem 10%;
+}
+.empty-card {
+  width: full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-card p {
+  font-size:large;
+  color: var(--primary-color);
+  padding: 0;
+  margin: 0;
+}
+
+.empty-card a {
+  text-decoration: none;
+  font-size: 50px;
+  color: var(--secondaryBlue-color);
+}
+
+.empty-card a:hover {
+  color: var(--primary-color);
+}
+
+.cart-items-list {
+  flex: 2; /* Takes up more space */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* --- Individual Cart Items (Horizontal Card) --- */
+.cart-item-card {
+  display: flex;
+  align-items: center;
+  background-color: #f5f0e1;
+  padding: 1.5rem;
+  border-radius: 12px;
+  gap: 2rem;
+  border: 1px solid rgba(91, 107, 64, 0.1);
+}
+
+.cart-item-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.item-details {
+  flex: 1; /* Pushes the quantity and remove buttons to the right */
+}
+
+.item-details h3 {
+  font-family: var(--font-heading, "Playfair Display", serif);
+  font-size: 1.3rem;
+  color: var(--secondaryBlue-color);
+  margin-bottom: 0.3rem;
+}
+
+.item-price {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* Quantity Selector */
+.item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #ffffff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid rgba(91, 107, 64, 0.2);
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+.qty-btn:hover {
+  background: #f5f0e1;
+}
+
+.qty-number {
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Remove Button */
+.remove-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #a05252; /* Soft red for deletion */
+  transition: transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  transform: scale(1.1);
+  background: #f0ddd4;
+}
+
+/* --- Cart Summary Card --- */
+.cart-summary {
+  flex: 1;
+  min-width: 300px;
+  height: fit-content; /* Prevents it from stretching down the whole page */
+  padding: 2.5rem;
+  text-align: left; /* Overriding the center text from your moving-card */
+  background-color: var(--secondaryWhite-color);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08); /* Soft, premium shadow */
+  border: 3px solid rgba(86, 104, 54, 0.5);
+}
+
+.cart-summary h3 {
+  font-family: var(--font-heading, "Playfair Display", serif);
+  font-size: 1.8rem;
+  color: var(--secondaryBlue-color);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: var(--color-text, #4a4a4a);
+}
+
+.cart-summary .divider {
+  height: 1px;
+  background-color: rgba(91, 107, 64, 0.2);
+  margin: 1.5rem 0;
+}
+
+.total-row {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-family: var(--font-body, "Lato", sans-serif);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+@media (max-width: 620px) {
+  .cart-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .cart-item-card {
+    flex-direction: column;
+    padding: 0.5rem;
+
+    gap: 2rem;
+  }
+  .item-details {
+    display: flex;
+    align-items: center;
+    gap: 2%;
+  }
+
+  /* Quantity Selector */
+  .item-quantity {
+    gap: 0.5rem;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .cart-summary {
+    flex: 1;
+    min-width: 100px;
+    height: fit-content; /* Prevents it from stretching down the whole page */
+    padding: 2.5rem;
+    text-align: left; /* Overriding the center text from your moving-card */
+  }
+}

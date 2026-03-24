@@ -1,0 +1,63 @@
+/* ================================== Products Page CSS ==================================*/
+/* TABLE CONTAINER */
+.schedule-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: auto;
+  margin-top: 30px;
+  font-family: "Lato", sans-serif;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* TITLE ROW */
+.table-title th {
+  background: var(--primary-color);
+  color: var(--secondaryWhite-color);
+  font-size: 22px;
+  padding: 14px;
+  letter-spacing: 1px;
+}
+
+/* HEADER ROW */
+.schedule-table thead tr:nth-child(2) {
+  background: var(--primary-color);
+  color: var(--secondaryWhite-color);
+}
+
+.schedule-table th {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* TABLE CELLS */
+.schedule-table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid var(--text-color);
+}
+
+/* DAY SECTION (colspan rows) */
+.day-section td {
+  background: var(--secondaryGreen-color);
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* HOVER EFFECT */
+.schedule-table tbody tr:hover {
+  background: #f9fdfb;
+  transition: 0.2s;
+}
+
+/* PLANT IMAGE */
+.schedule-table img {
+  border-radius: 50%;
+  border: 2px solid #e5e5e5;
+}

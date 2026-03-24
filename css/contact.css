@@ -1,0 +1,145 @@
+/* ================================== Contact Page Layout ==================================*/
+
+/* --- Elegant Split Layout --- */
+.contact {
+  flex: 1; /* Takes up all remaining vertical space under the navbar */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center; /* Centers the content perfectly in the middle of the screen */
+  max-width: 900px;
+  margin: 10% auto;
+  margin-bottom: 3%;
+  padding: 2% 6%;
+  gap: 3rem;
+  background-color: var(--secondaryWhite-color);
+  border-radius: 10px;
+  height: fit-content;
+}
+
+/* --- Left Column: Typography --- */
+.contact-elegant-info h2 {
+  font-family: var(--font-heading);
+  font-size: 3.5rem; /* Make it large and editorial */
+  color: var(--secondaryBlue-color);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.contact-elegant-info .subtitle {
+  font-size: 1.1rem;
+  color: var(--secondaryBrown-color);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  max-width: 100%;
+}
+
+.info-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item strong {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 0.3rem;
+}
+
+.info-item p {
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* --- Right Column: The Form Card --- */
+.contact-elegant-form {
+  background-color: var(--secondary-color);
+  padding: 2.5rem;
+  border-radius: 16px; /* Slightly rounder for an elegant look */
+  box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08); /* Soft, premium shadow */
+  border: 3px solid rgba(86, 104, 54, 0.5);
+}
+
+/* Put First and Last name side-by-side to save height */
+.contact-elegant-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Compact spacing for the form to ensure it doesn't cause a scrollbar */
+.contact-elegant-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.contact-elegant-form label {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.contact-elegant-form input,
+.contact-elegant-form textarea {
+  padding: 0.6rem 1rem; /* Slightly thinner padding */
+  border-radius: 8px;
+  border: 1px solid var(--primary-color); /* Removes harsh borders */
+}
+
+.contact-elegant-form input:focus,
+.contact-elegant-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(91, 107, 64, 0.15);
+}
+
+/* --- MOBILE PHONES (Max width: 1225px) --- */
+@media (max-width: 1225px) {
+  .contact {
+    max-width: 100%;
+    padding: 0 2%;
+    gap: 1rem;
+    height: 82%;
+  }
+}
+
+/* --- MOBILE PHONES (Max width: 850px) --- */
+@media (max-width: 850px) {
+  .contact {
+    grid-template-columns: 1fr;
+    padding: 5px 2%;
+    gap: 1rem;
+    height: fit-content;
+    margin-top: 15%;
+  }
+
+  /* --- Left Column: Typography --- */
+  .contact-elegant-info h2 {
+    font-size: 2rem; /* Make it large and editorial */
+    line-height: 0.5;
+  }
+
+  .info-blocks {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  /* --- Right Column: The Form Card --- */
+  .contact-elegant-form {
+    padding: 0.5rem;
+    margin: 0 5%;
+  }
+}
+
+@media (max-width: 550px) {
+  /* --- Right Column: The Form Card --- */
+  .contact-elegant-form {
+    padding: 0.5rem;
+  }
+
+  .contact-elegant-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

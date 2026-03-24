@@ -1,0 +1,639 @@
+:root {
+  --primary-color: #5b6b3a;
+  --secondary-color: #f5f0e1;
+  --secondaryGreen-color: rgb(218, 211, 172);
+  --forestGreen-color: #2d5a27;
+  --secondaryBlue-color: #272d4e;
+  --secondaryBrown-color: #5e5e5e;
+  --secondaryWhite-color: #ffffff;
+  --text-color: #f9f9f9;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Lato", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  background-color: var(--primary-color);
+  color: var(--secondaryBlue-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* horizontal */
+  align-items: center; /* vertical */
+  font-family: var(--font-body);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  /* This prevents your fixed navbar from covering the section titles when it scrolls */
+  scroll-padding-top: 140px;
+  min-height: 100vh;
+}
+
+/* --- Headings --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.logo-text {
+  font-family: var(--font-heading);
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+/* --- Specific Elements --- */
+.nav-header {
+  width: 100%;
+}
+
+p {
+  font-weight: 400; /* Regular Lato */
+}
+
+.page-header {
+  text-align: center;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+.page-header h2 {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  color: var(--secondaryBlue-color);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  color: var(--secondaryBrown-color);
+  font-size: 1.1rem;
+  margin: 0 auto;
+  width: 50%;
+}
+
+button,
+.button {
+  font-family: var(--font-body);
+  font-weight: 700; /* Bold Lato for clickable items */
+  background-color: var(--primary-color);
+  color: white;
+  width: fit-content;
+  height: auto;
+  padding: 10px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+}
+
+button:hover:not(:disabled),
+.button:hover:not(:disabled) {
+  background-color: #4a5734;
+  transform: translateY(-2px);
+}
+
+button:disabled,
+.button:disabled {
+  background-color: #cccccc; /* A light gray color */
+  color: #888888; /* Dimmer text color */
+  cursor: not-allowed; /* Changes mouse to a "forbidden" circle */
+  opacity: 0.7; /* Makes it look slightly faded */
+}
+
+.container {
+  width: 80vw;
+  height: 90vh;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.main-container {
+  background-color: var(--secondaryWhite-color);
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.fill-container {
+  background: linear-gradient(45deg, #ecdfbb 40%, #faf1d4 60%);
+}
+
+.centerChildren {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: inherit;
+  height: 60px;
+  position: absolute;
+  z-index: 10;
+}
+
+.logo {
+  width: 250px;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+.logo a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--secondaryBlue-color);
+  font-size: 20px;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  color: var(--primary-color);
+}
+
+.icons-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 15%;
+  height: 100%;
+  margin: 0;
+}
+
+.icon {
+  width: 20px; /* set a proper size */
+  height: 20px;
+  transition: transform 0.3s ease; /* smooth animation */
+  cursor: pointer;
+  display: block; /* prevents baseline alignment issues */
+}
+
+.userIcon {
+  display: none;
+}
+
+.icon:hover {
+  transform: scale(1.3); /* grows 30% */
+}
+
+/* ======================== Hamburger Icon ===================================*/
+.hamburger {
+  display: none; /* Hidden on desktop */
+  cursor: pointer;
+  z-index: 100; /* Keep it above the sliding menu */
+}
+
+.hamburger .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: var(--secondaryBlue-color);
+  transition: all 0.3s ease;
+}
+
+/* Turns the hamburger into an "X" when clicked */
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.scroll-page {
+  overflow-y: auto;
+  scrollbar-gutter: stable; /* Keeps layout stable when scrollbar appears */
+  scrollbar-width: thin; /* Options: auto, thin */
+  scrollbar-color: var(--primary-color) #f0f7f4; /* Light green thumb, very pale green track */
+  border-radius: 0px; /* Sharp edges for the track for modern contrast */
+}
+
+.form-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  margin-top: 1rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--secondaryBlue-color);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 6px;
+  background-color: var(--secondaryWhite-color);
+  transition:
+    0.3s ease,
+    0.3s ease;
+  color: var(--secondaryBrown-color);
+}
+
+/* Elegant focus effect when typing */
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(91, 107, 64, 0.1);
+  background-color: #ffffff;
+}
+
+/* Specific button style for the profile form */
+.form-btn {
+  align-self: flex-start; /* Keeps the button from stretching across the whole screen */
+  padding: 0.8rem 2.5rem;
+}
+
+/* ========================overlay background ===================================*/
+.search-overlay {
+  position: fixed;
+  top: 100;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 999;
+}
+
+/* show overlay */
+.search-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* search box */
+.search-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 10px;
+  width: 400px;
+  height: fit-content;
+  margin-top: 2.5%;
+}
+
+.search-box input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline-width: 2px;
+  outline-color: var(--primary-color);
+}
+
+.search-box button {
+  padding: 10px 15px;
+  background: #5b6b3a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Shake animation for empty searches */
+.shake-error {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* footer */
+.footer {
+  /* Positioning */
+  position: relative;
+
+  /* Dimensions & Background */
+  width: 90%; /* Removed 'width: inherit' override */
+  /* Flexbox Setup */
+  display: flex; /* Removed duplicate */
+  justify-content: space-between;
+  align-items: center;
+  gap: 15%;
+  margin: auto;
+
+  /* Spacing */
+  height: fit-content;
+  /* Typography */
+  color: var(--secondaryBlue-color);
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+.info {
+  text-align: center;
+  width: fit-content;
+  margin-left: 5%;
+}
+
+.info-contact {
+  display: flex;
+  gap: 2%;
+  text-align: center;
+  margin-right: 4%;
+}
+
+.info-contact p {
+  min-width: fit-content;
+  padding: 0;
+  margin: 0;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 12%;
+  right: 14%;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: 0.3s ease;
+  z-index: 999;
+  display: none; /* hidden by default */
+}
+.footer .info-contact {
+  width: fit-content;
+}
+
+.footer a {
+  color: var(--secondaryBlue-color);
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--primary-color);
+}
+
+/* Global Toast Styles */
+.toast-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 10000;
+}
+
+.toast {
+  min-width: 250px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: hidden;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(120%); /* Hidden to the right */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast.show {
+  display: flex;
+  transform: translateX(0);
+}
+
+.toast-success {
+  background-color: var(--forestGreen-color);
+  border-left: 6px solid #1e8449;
+}
+.toast-error {
+  background-color: #d8675b;
+  border-left: 6px solid #ba1300;
+}
+/* ================================== Global Responsive Media Queries ================================== */
+
+/* --- TABLETS & SMALL LAPTOPS (Max width: 1322px) --- */
+@media (max-width: 1324px) {
+  .footer {
+    gap: 5px;
+    padding: 5px 0;
+  }
+
+  .info-contact {
+    gap: 5%;
+    margin-right: 2%;
+  }
+}
+
+/* --- TABLETS & SMALL LAPTOPS (Max width: 1024px) --- */
+@media (max-width: 1024px) {
+  .container {
+    width: 95vw; /* Take up more screen space on smaller monitors */
+  }
+
+  .nav-links {
+    gap: 15px; /* Reduce space between links */
+  }
+
+  .nav-links a {
+    font-size: 16px;
+  }
+
+  .logo {
+    width: 180px; /* Shrink logo slightly */
+  }
+
+  .icons-container {
+    width: 25%; /* Give icons more room */
+  }
+
+  .page-header p {
+    width: 75%; /* Expand paragraph width so it doesn't wrap awkwardly */
+  }
+}
+
+/* --- TABLETS & SMALL LAPTOPS (Max width: 890px) --- */
+@media (max-width: 890px) {
+  .info-contact {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* --- MOBILE PHONES (Max width: 768px) --- */
+@media (max-width: 768px) {
+  /* Footer Adjustments */
+  .footer {
+    position: relative; /* Un-fix the footer so it sits naturally at the bottom of scrolled content */
+    flex-direction: column; /* Stack info and contact horizontally */
+    gap: 10px;
+  }
+
+  .info-contact {
+    flex-direction: column; /* Stack email/phone and social links */
+    gap: 10px;
+    margin: 0 auto;
+  }
+}
+
+/* --- MOBILE PHONES (Max width: 568px) --- */
+@media (max-width: 568px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0; /* Remove rounded corners for full-screen mobile feel */
+    overflow-y: auto; /* Allow scrolling inside the container on mobile */
+  }
+
+  /* Adjust Page Headers */
+  .page-header {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h2 {
+    font-size: 2.2rem;
+  }
+
+  .page-header p {
+    width: 90%;
+    font-size: 1rem;
+  }
+
+  /* Show the hamburger icon on mobile */
+  .hamburger {
+    display: block;
+    margin-right: 15px; /* Spacing next to other icons */
+  }
+
+  /* Style the sliding mobile menu */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hide it completely off-screen to the right */
+    width: 50%;
+    height: 100vh; /* Take up full screen height */
+    background-color: color-mix(in srgb, var(--primary-color) 90%, transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s ease; /* Smooth slide animation */
+    z-index: 99; /* Place just under the hamburger icon */
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* When JS adds the 'active' class, slide the menu in */
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links li {
+    margin: 20px 0; /* Space out the links vertically */
+  }
+
+  .nav-links a {
+    font-size: 24px; /* Make text larger and easier to tap */
+    color: var(--secondaryWhite-color);
+  }
+
+  .logo {
+    width: 150px;
+  }
+
+  .icons-container {
+    width: auto;
+    gap: 15px;
+    margin-right: 15px;
+  }
+
+  /* Form Layout */
+  .form-row {
+    flex-direction: column; /* Stack form fields vertically */
+    gap: 1rem;
+  }
+
+  /* Search Overlay Adjustments */
+  .search-box {
+    width: 90%; /* Fluid width instead of fixed 400px */
+    flex-direction: column; /* Stack input and button */
+    padding: 15px;
+  }
+
+  .search-box input {
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+  }
+
+  .search-box button {
+    width: 100%;
+  }
+
+  /* Footer Adjustments */
+  .footer {
+    position: relative; /* Un-fix the footer so it sits naturally at the bottom of scrolled content */
+    flex-direction: column; /* Stack info and contact horizontally */
+    gap: 10px;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .info {
+    margin: 0 auto;
+  }
+
+  .info-contact {
+    flex-direction: column; /* Stack email/phone and social links */
+    gap: 10px;
+    margin: 0 auto;
+  }
+}

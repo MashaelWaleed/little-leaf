@@ -1,0 +1,130 @@
+/* ================================== Products Page Layout ==================================*/
+
+/* --- The Product Grid --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem 2rem; /* 3rem vertical gap, 2rem horizontal gap */
+  margin: 0 150px;
+}
+
+/* --- Individual Product Card --- */
+.product-card {
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba(248, 248, 248, 0.4);
+  border-radius: 12px;
+}
+
+.product-image-bg {
+  background-color: var(--secondaryGreen-color);
+  border-radius: 12px;
+  padding: 0.5rem;
+  aspect-ratio: 1 / 1; /* Keeps the background a perfect square */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Plant Image Styling */
+.product-image-bg img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  /* Adds a smooth drop shadow to the plant itself to make it pop */
+  filter: drop-shadow(0 15px 15px rgba(0, 0, 0, 0.15));
+  transition: transform 0.5s ease;
+  border-radius: 10px;
+}
+
+/* Hover effect: The plant grows slightly when you hover over the card */
+.product-card:hover .product-image-bg img {
+  transform: scale(1.08);
+}
+
+.product-card:hover .product-image-bg {
+  box-shadow: 0 10px 20px rgba(91, 107, 64, 0.1);
+}
+
+/* Quick "Add to Cart" Button that appears on hover */
+.add-to-cart-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondaryWhite-color);
+  color: var(--primary-color);
+  border: none;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .add-to-cart-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--forestGreen-color);
+  color: var(--secondaryWhite-color);
+}
+
+/* --- Product Text Info --- */
+.product-info h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--secondaryBlue-color);
+  margin-bottom: 0.25rem;
+}
+
+.product-info .price {
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+/* --- MOBILE PHONES (Max width: 890px) --- */
+@media (max-width: 890px) {
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 2rem; /* 3rem vertical gap, 2rem horizontal gap */
+    margin: 0 100px;
+  }
+}
+
+/* --- MOBILE PHONES (Max width: 660px) --- */
+@media (max-width: 660px) {
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem 2rem; /* 3rem vertical gap, 2rem horizontal gap */
+    margin: 0 50px;
+  }
+
+  .product-image-bg {
+    padding: 1rem;
+    margin: 30px;
+  }
+
+  /* Plant Image Styling */
+  .product-image-bg img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

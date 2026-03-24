@@ -1,0 +1,76 @@
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 0 15%;
+  margin-bottom: 10%;
+}
+
+.service-card {
+  background: var(--secondaryWhite-color);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+  border: 3px solid rgb(218, 211, 172);
+  max-width: 550px;
+  margin: 0 5%;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.service-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  color: var(--secondaryBrown-color);
+}
+
+.service-btn {
+  padding: 8px 18px;
+  text-decoration: none;
+}
+
+/* care section */
+.care-section {
+  margin-top: 5rem;
+  margin-bottom: 7rem;
+}
+
+.care-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.care-grid div {
+  margin: auto;
+  background-color: rgb(218, 211, 172);
+  border-radius: 20px;
+  width: 50%;
+}
+
+
+.back-to-top:hover {
+  background-color: var(--secondaryBlue-color);
+  transform: translateY(-3px);
+}
+
+
+/* --- MOBILE PHONES (Max width: 690px) --- */
+@media (max-width: 690px) {
+  .services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 15%;
+  margin-bottom: 10%;
+}
+}
