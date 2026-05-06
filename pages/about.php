@@ -23,12 +23,13 @@
   </head>
 
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
     <!-- HEADER -->
       <?php 
            include('../config.php');
            include(BASE_PATH . 'parts/nav.php'); 
       ?>
+      <main>
       <div class="page-header">
         <h2>Our Roots</h2>
         <p>
@@ -96,9 +97,10 @@
           </div>
         </div>
       </section>
+      </main>
       <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+</div>
 
      <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

@@ -94,7 +94,7 @@
   color: var(--primary-color);
 }
 .qty-btn:hover {
-  background: #f5f0e1;
+  background: #f5f0e1 !important;
 }
 
 .qty-number {
@@ -115,7 +115,7 @@
 
 .remove-btn:hover {
   transform: scale(1.1);
-  background: #f0ddd4;
+  background: #f0ddd4 !important;
 }
 
 /* --- Cart Summary Card --- */

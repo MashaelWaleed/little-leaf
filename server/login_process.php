@@ -29,6 +29,7 @@ if (isset($_POST['login_submit'])){
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_phone'] = $user['phone'];
         $_SESSION['logged_in'] = true;
+        $_SESSION['role']=$user['role'];
 
         //if a user adds plants as a guest and then logs in
         //we should "sync" those items to the database immediately

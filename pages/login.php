@@ -25,12 +25,12 @@
   </head>
 
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
       <!-- HEADER -->
       <?php 
         include(BASE_PATH . 'parts/nav.php'); 
       ?>
-           
+       <main>  
       <section class="login-wrapper">
         <div
           class="login-image"
@@ -178,9 +178,10 @@
           </div>
         </div>
       </section>
+      </main>  
     <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+              </div>
 
  <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

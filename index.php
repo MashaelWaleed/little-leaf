@@ -30,11 +30,12 @@
     />
   </head>
   <body>
-    <main class="container main-container">
+    <div class="container main-container">
   <!-- NAVBAR -->
             <?php 
            include(BASE_PATH . 'parts/nav.php'); 
       ?>
+      <main>
       <div class="plainDiv"></div>
 
       <div class="store_name_container">
@@ -55,7 +56,14 @@
         <button id="loginBtn" class="main-btn login-btn" onclick="window.location.href = '<?= BASE_URL ?>pages/login.php'">
             Login
         </button>
-    <?php endif; ?>
+    <?php endif; ?>   
+
+     <?php if ((isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == true)&& $_SESSION['role'] === 'admin'): ?>
+        <button id="dashBtn" class="main-btn login-btn" onclick="window.location.href = '<?= BASE_URL ?>admin/dashboard.php'">
+            Dashboard
+        </button>
+    <?php endif; ?> 
+
         </div>
       </div>
 
@@ -77,10 +85,11 @@
           <img class="img" src="./images/C.svg" alt="plant image" />
         </div>
       </div>
+      </main>
             <!-- SIMPLE FOOTER -->
       <?php include("parts/footer.php")?>
     
-    </main>
+        </div>
     <!-- 🔍 Floating Search Overlay -->
     <?php include("parts/floatingSearch.php")?>
 

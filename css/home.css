@@ -1,4 +1,4 @@
-/* ================================== Home Page Layout ==================================*/
+/* ================================== Home Page CSS ==================================*/
 .plainDiv {
   background: linear-gradient(45deg, #ecdfbb 40%, #faf1d4 70%);
   width: 85%;
@@ -52,7 +52,6 @@
   outline-color: rgba(86, 104, 54, 0.5);
   outline-width: 1px;
   outline-style: solid;
-  display: inline-block;
 }
 
 .login-btn:hover {
@@ -71,9 +70,10 @@
 .card-container {
   width: 70%;
   height: 30%;
-  margin-top: 5%;
+  margin-top: 8%;
   display: flex;
   justify-content: space-around;
+ 
 }
 
 .card {
@@ -146,8 +146,9 @@
   .plainDiv {
     width: 100%; /* Take up full width on mobile */
     border-bottom-left-radius: 20px; /* Match the right side curve */
-    height: 50%;
+    height: 55%;
   }
+
 }
 
 @media (max-width: 768px) {
@@ -183,10 +184,12 @@
     width: 100%; /* Take up full width on mobile */
     border-bottom-left-radius: 20px; /* Match the right side curve */
     height: 45%;
+   
   }
 
   .store_name_container {
     width: 100%;
+    height:40%;
   }
 
   .store-name {
@@ -201,10 +204,6 @@
     font-size: 16px;
   }
 
-  .btn-container {
-    left: 5%;
-    bottom: -0px; /* Push buttons down to avoid text overlap */
-  }
 
   .main-img {
     display: none; /* Hides the large overlapping image on tiny screens */
@@ -234,5 +233,10 @@
     display: flex;
     flex-direction: column;
     position: absolute;
+    margin-top: 0;
+  }
+
+  .footer{
+    margin-top: 200px;
   }
 }

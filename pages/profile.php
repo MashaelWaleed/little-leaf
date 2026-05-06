@@ -31,12 +31,12 @@ if (!isset($_SESSION['logged_in'])) {
     />
   </head>
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
         <!-- HEADER -->
             <?php 
            include(BASE_PATH . 'parts/nav.php'); 
       ?>
-
+       <main>
       <div class="page-header">
         <h2>My Account</h2>
         <p>Manage your details and keep your sanctuary growing.</p>
@@ -229,9 +229,10 @@ if (!isset($_SESSION['logged_in'])) {
           </div>
         </div>
       </div>
+      </main>
        <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+                    </div>
 
     <!--Payment method modal -->
     <div id="payment-modal" class="modal-overlay" style="display:none;">

@@ -23,12 +23,13 @@
   </head>
 
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
        <!-- HEADER -->
        <?php 
            include('../config.php');
            include(BASE_PATH . 'parts/nav.php');      
         ?>
+        <main>
       <section class="contact">
         <div class="contact-elegant-info">
           <h2>Get in Touch</h2>
@@ -103,9 +104,10 @@
           </form>
         </div>
       </section>
+      </main>
        <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+</div>
 
     <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

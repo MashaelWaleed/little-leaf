@@ -1,3 +1,57 @@
+// Add this to your profile.js
+const profileForm = document.querySelector(".profile-form");
+
+profileForm?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // Show loading state on button
+  const submitBtn = profileForm.querySelector('button[name="update_profile"]');
+  const originalText = submitBtn.innerText;
+  submitBtn.innerText = "Saving...";
+  submitBtn.disabled = true;
+
+  const formData = new FormData(profileForm);
+  formData.append("update_profile", "1"); // Ensure the PHP isset() check passes
+
+  try {
+    const response = await fetch("../server/update_profile.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (result.status === "success") {
+      showGlobalToast("Profile updated successfully! 🌿", "success");
+
+      // Optional: Update any other UI elements that show the name
+      const userNameDisplay = document.querySelector(".user-name-display");
+      if (userNameDisplay) {
+        userNameDisplay.innerText = `${result.data.fName} ${result.data.lName}`;
+      }
+    } else {
+      // Handle specific errors based on message
+      if (result.message === "invalid_phone") {
+        showGlobalToast(
+          "Please enter a valid Saudi mobile number. 🥀",
+          "error",
+        );
+      } else if (result.message === "exists") {
+        showGlobalToast("This email is already in use. 🥀", "error");
+      } else {
+        showGlobalToast("Something went wrong. 🥀", "error");
+      }
+    }
+  } catch (error) {
+    console.error("Fetch error:", error);
+    showGlobalToast("Server connection error. 🥀", "error");
+  } finally {
+    // Reset button state
+    submitBtn.innerText = originalText;
+    submitBtn.disabled = false;
+  }
+});
+
 // and Select the element that has the overflow-y: scroll
 const scrollContainer = document.querySelector(".container");
 // 1. Target the .nav-link directly
@@ -46,8 +100,18 @@ async function deleteAddress(addressId) {
     const result = await response.json();
 
     if (result.status === "success") {
-      // Remove the card from the screen without reloading!
-      location.reload();
+      // 🆕 DYNAMIC UPDATE: Instead of location.reload()
+      // Find the button that was clicked, then find its parent .info-card
+      const cardToDelete = document
+        .querySelector(`button[onclick*="deleteAddress(${addressId})"]`)
+        .closest(".info-card");
+
+      // Add a fade-out effect (optional but professional)
+      cardToDelete.style.opacity = "0";
+      setTimeout(() => {
+        cardToDelete.remove(); // Remove from DOM entirely
+        showGlobalToast("Address removed! 🌿", "success");
+      }, 300);
     }
   } catch (error) {
     console.error("Fetch error:", error);
@@ -55,7 +119,6 @@ async function deleteAddress(addressId) {
   }
 }
 
-//add or update button-------------------------------------------------
 // Function to open modal for ADDING
 function openAddModal() {
   document.getElementById("address-form").reset();
@@ -97,33 +160,52 @@ function closeModal() {
   document.getElementById("address-modal").style.display = "none";
 }
 
-// Handle Form Submission via AJAX----------------------------------
+// Handle Address Form Submission (ADD & EDIT)
 document
   .getElementById("address-form")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    const action = formData.get("action");
 
     try {
       const response = await fetch("../server/address_process.php", {
         method: "POST",
         body: formData,
       });
-
       const result = await response.json();
 
-      // 1. Logic for SUCCESS
-      if ((result.status = "success")) {
-        location.reload();
-      }
-      // 2. Logic for ERRORS
-      else {
-        showGlobalToast("Something went wrong. Please try again. 🥀", "error");
+      if (result.status === "success") {
+        if (action === "add") {
+          // Dynamic Add: Insert new card before the "Add New" placeholder
+          const newCardHTML = createAddressCardHTML(result.data);
+          document
+            .querySelector("#saved-addresses .add-new-card")
+            .insertAdjacentHTML("beforebegin", newCardHTML);
+          showGlobalToast("New sanctuary added! 🌿", "success");
+        } else {
+          // Dynamic Update: Refresh content of the specific card
+          const card = document
+            .querySelector(
+              `button[onclick*="deleteAddress(${formData.get("address_id")})"]`,
+            )
+            .closest(".info-card");
+          card.querySelector("h4").innerText = formData.get("label");
+          card.querySelector("p").innerHTML = `
+                    ${formData.get("full_name")}<br />
+                    ${formData.get("address_line")}<br />
+                    ${formData.get("city")}, ${formData.get("province")}<br />
+                    Saudi Arabia
+                `;
+          showGlobalToast("Address updated! 🌿", "success");
+        }
+        closeModal();
+      } else {
+        showGlobalToast("Could not save address. 🥀", "error");
       }
     } catch (error) {
       console.error("Fetch error:", error);
       showGlobalToast("Server connection error. 🥀", "error");
-      closeModal();
     }
   });
 
@@ -135,49 +217,40 @@ function openPaymentModal() {
 function closePaymentModal() {
   document.getElementById("payment-modal").style.display = "none";
 }
-// Handle Form Submission via AJAX----------------------------------
 document
   .getElementById("payment-form")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const formData = new FormData(e.target);
     const fullCardNum = document.getElementById("card-num-input").value;
+    const brand = fullCardNum.startsWith("5") ? "Mastercard" : "Visa";
 
-    // Detect Brand (Simple logic)
-    let brand = "Visa";
-    if (fullCardNum.startsWith("5")) brand = "Mastercard";
-
-    // Only send the SAFE data to the server(append info to formdata)
     formData.append("card_brand", brand);
     formData.append("last4", fullCardNum.slice(-4));
 
     try {
       const response = await fetch("../server/address_process.php", {
-        // You can use the same controller!
         method: "POST",
         body: formData,
       });
       const result = await response.json();
 
       if (result.status === "success") {
-        location.reload();
-      } else {
-        showGlobalToast("Something went wrong. Please try again. 🥀", "error");
+        const newCardHTML = createPaymentCardHTML(result.data);
+        document
+          .querySelector("#payment-methods .add-new-card")
+          .insertAdjacentHTML("beforebegin", newCardHTML);
+        closePaymentModal();
+        showGlobalToast("Payment method saved! 💳", "success");
       }
     } catch (error) {
-      console.error("Fetch error:", error);
-      showGlobalToast("Failed to save card.", "error");
-      closePaymentModal();
+      showGlobalToast("Error saving card. 🥀", "error");
     }
   });
 
-  //delete card------------------------------------------------------------------
-  //delete button--------------------------------------------------------
 async function deleteCard(cardId) {
   if (!confirm("Are you sure you want to delete this card?")) return;
 
-  // Create a virtual form
   const formData = new FormData();
   formData.append("action", "deleteCard");
   formData.append("card_id", cardId);
@@ -190,11 +263,50 @@ async function deleteCard(cardId) {
     const result = await response.json();
 
     if (result.status === "success") {
-      // Remove the card from the screen without reloading!
-      location.reload();
+      const cardElement = document
+        .querySelector(`button[onclick*="deleteCard(${cardId})"]`)
+        .closest(".info-card");
+      cardElement.style.opacity = "0";
+      cardElement.style.transform = "scale(0.9)";
+      setTimeout(() => {
+        cardElement.remove();
+        showGlobalToast("Card removed. 🥀", "success");
+      }, 300);
     }
   } catch (error) {
-    console.error("Fetch error:", error);
     showGlobalToast("Server connection error. 🥀", "error");
   }
+}
+
+// --- HTML Generators (For AJAX injection) ---
+
+function createAddressCardHTML(data) {
+  return `
+        <div class="info-card">
+            ${data.is_default == 1 ? '<span class="badge">Default</span>' : ""}
+            <h4>${data.label}</h4>
+            <p>
+                ${data.full_name}<br />
+                ${data.address_line}<br />
+                ${data.city}, ${data.province}<br />
+                Saudi Arabia
+            </p>
+            <div class="card-actions">
+                <button class="text-btn" onclick='openEditModal(${JSON.stringify(data)})'>Edit</button>
+                <button class="text-btn danger" onclick="deleteAddress(${data.id})">Delete</button>
+            </div>
+        </div>`;
+}
+
+function createPaymentCardHTML(data) {
+  return `
+        <div class="info-card">
+            ${data.is_default == 1 ? '<span class="badge">Default</span>' : ""}
+            <h4>${data.card_brand} ending in ${data.last4}</h4>
+            <p>Expires ${data.expiry_month} / ${data.expiry_year}</p>
+            <p class="card-name">${data.cardholder_name}</p>
+            <div class="card-actions">
+                <button class="text-btn danger" onclick="deleteCard(${data.id})">Remove</button>
+            </div>
+        </div>`;
 }

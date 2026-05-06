@@ -56,10 +56,10 @@ foreach ($plants as $row) {
 
     <body>
 
-        <main class="container fill-container scroll-page">
+        <div class="container fill-container scroll-page">
               <!-- HEADER -->
             <?php require_once(BASE_PATH . 'parts/nav.php'); ?>
-
+            <main>
             <div class="page-header">
                 <h2>Nurturing Rhythms</h2>
                 <p>
@@ -110,9 +110,10 @@ foreach ($plants as $row) {
                         <?php endforeach; ?>
                     </tbody>
                 </table>    
+                </main>
                 <!-- SIMPLE FOOTER -->
                 <?php include("../parts/footer.php")?>    
-        </main>
+                                </div>
 
         <!-- 🔍 Floating Search Overlay -->
         <?php include("../parts/floatingSearch.php")?>

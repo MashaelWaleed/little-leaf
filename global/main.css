@@ -103,6 +103,8 @@ button:disabled,
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   width: 80vw;
   height: 90vh;
   border-radius: 10px;
@@ -110,12 +112,17 @@ button:disabled,
   position: relative;
   margin-bottom: 0;
   padding-bottom: 0;
+  border-radius: 0px; /* Sharp edges for the track for modern contrast */
+}
+
+main {
+  /* This tells the main content to grow and take up all available space, 
+     effectively pushing the footer to the bottom */
+  flex: 1;
 }
 
 .main-container {
   background-color: var(--secondaryWhite-color);
-  overflow-y: scroll;
-  scrollbar-width: none;
 }
 
 .fill-container {
@@ -128,6 +135,12 @@ button:disabled,
   align-items: center;
 }
 
+.scroll-page {
+  overflow-y: auto;
+  scrollbar-gutter: stable; /* Keeps layout stable when scrollbar appears */
+  scrollbar-width: thin; /* Options: auto, thin */
+  scrollbar-color: var(--primary-color) #f0f7f4; /* Light green thumb, very pale green track */
+}
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -219,14 +232,6 @@ button:disabled,
   transform: translateY(-8px) rotate(-45deg);
 }
 
-.scroll-page {
-  overflow-y: auto;
-  scrollbar-gutter: stable; /* Keeps layout stable when scrollbar appears */
-  scrollbar-width: thin; /* Options: auto, thin */
-  scrollbar-color: var(--primary-color) #f0f7f4; /* Light green thumb, very pale green track */
-  border-radius: 0px; /* Sharp edges for the track for modern contrast */
-}
-
 .form-row {
   display: flex;
   gap: 2rem;
@@ -299,33 +304,52 @@ button:disabled,
   visibility: visible;
 }
 
-/* search box */
-.search-box {
+.search-container {
   background: white;
-  padding: 20px;
+  padding-bottom: 20px;
   border-radius: 12px;
   display: flex;
-  gap: 10px;
-  width: 400px;
+  flex-direction: column;
+  gap: 5px;
+  width: 450px;
   height: fit-content;
   margin-top: 2.5%;
 }
 
+/* search box */
+.search-box {
+  margin-top: 0px;
+  padding: 0px 20px;
+}
+
+.filter-controls {
+  padding: 20px;
+  display: flex;
+}
+
+.categoryFilter{
+  margin-right: 1rem;
+  margin-bottom: 20px;
+}
 .search-box input {
   padding: 10px;
-  width: 300px;
+  width: 90%;
   border: 1px solid #ccc;
   border-radius: 8px;
   outline-width: 2px;
   outline-color: var(--primary-color);
 }
 
-.search-box button {
+.closeBtn-Container {
+  width: full;
+  display: flex;
+  justify-content: end;
+  padding: 0px;
+}
+.closeBtn {
   padding: 10px 15px;
-  background: #5b6b3a;
-  color: white;
-  border: none;
-  border-radius: 8px;
+  background: none !important;
+  color: var(--primary-color);
   cursor: pointer;
 }
 
@@ -470,28 +494,32 @@ button:disabled,
     gap: 5%;
     margin-right: 2%;
   }
-}
 
-/* --- TABLETS & SMALL LAPTOPS (Max width: 1024px) --- */
-@media (max-width: 1024px) {
-  .container {
-    width: 95vw; /* Take up more screen space on smaller monitors */
+  .icons-container {
+    width: 15%; /* Give icons more room */
+  }
+  .nav-links a {
+    font-size: 19px;
   }
 
   .nav-links {
-    gap: 15px; /* Reduce space between links */
-  }
-
-  .nav-links a {
-    font-size: 16px;
+    gap: 14px; /* Reduce space between links */
+    padding-left: 0%;
   }
 
   .logo {
     width: 180px; /* Shrink logo slightly */
   }
+}
 
-  .icons-container {
-    width: 25%; /* Give icons more room */
+/* --- TABLETS & SMALL LAPTOPS (Max width: 1090px) --- */
+@media (max-width: 1090px) {
+  .container {
+    width: 95vw; /* Take up more screen space on smaller monitors */
+  }
+
+  .nav-links {
+    gap: 10px; /* Reduce space between links */
   }
 
   .page-header p {
@@ -504,6 +532,14 @@ button:disabled,
   .info-contact {
     display: flex;
     flex-direction: column;
+  }
+
+  .nav-links a {
+    font-size: 16px;
+  }
+
+  .logo {
+    width: 170px; /* Shrink logo slightly */
   }
 }
 
@@ -521,10 +557,23 @@ button:disabled,
     gap: 10px;
     margin: 0 auto;
   }
+
+  .container {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0; /* Remove rounded corners for full-screen mobile feel */
+    overflow-y: auto; /* Allow scrolling inside the container on mobile */
+  }
+}
+
+@media (max-width: 715px) {
+  .nav-links {
+    gap: 8px; /* Reduce space between links */
+  }
 }
 
 /* --- MOBILE PHONES (Max width: 568px) --- */
-@media (max-width: 568px) {
+@media (max-width: 580px) {
   .container {
     width: 100vw;
     height: 100vh;
@@ -616,6 +665,27 @@ button:disabled,
 
   .search-box button {
     width: 100%;
+  }
+
+  .filter-controls {
+    display: flex;
+    gap: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 10px;
+    align-items: center;
+  }
+
+  .price-range {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #priceFilter {
+    accent-color: var(--primary-color);
+    cursor: pointer;
   }
 
   /* Footer Adjustments */

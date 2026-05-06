@@ -13,17 +13,6 @@ require_once('../server/db_connect.php');
 $stmt = $pdo->query("SELECT * FROM plants");
 $plants = $stmt->fetchAll();
 
-// In products.php
- $search_query = isset($_GET['search']) ? $_GET['search'] : '';
-
-if ($search_query !== '') {
-    // Use Prepared Statements to search your database
-    $stmt = $pdo->prepare("SELECT * FROM plants WHERE name LIKE ?");
-    $searchTerm = "%$search_query%";
-    $stmt->execute([$searchTerm]);
-    $plants = $stmt->fetchAll();
-}
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,11 +30,12 @@ if ($search_query !== '') {
     />
   </head>
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
          <!-- HEADER -->
             <?php 
            include(BASE_PATH . 'parts/nav.php'); 
       ?>
+      <main>
       <div class="page-header">
         <h2>Our Collection</h2>
         <p>Bring the outside in with our hand-selected botanical companions.</p>
@@ -69,9 +59,10 @@ if ($search_query !== '') {
  <?php endforeach; ?>
 
   </div>
+  </main>
       <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+</div>
 
      <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

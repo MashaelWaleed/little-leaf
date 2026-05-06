@@ -30,13 +30,13 @@ error_reporting(E_ALL);
     />
   </head>
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
         <!-- HEADER -->
        <?php 
            include(BASE_PATH . 'parts/nav.php');      
         ?>
-
-      <div class="grid-layout">
+       <main>
+      <div class="grid-layout-feed">
         <div class="users-opinions-container">
           <h2>Share Your Thoughts with Little Leaf</h2>
           <p>We'd love to hear how we're doing!</p>
@@ -73,7 +73,6 @@ error_reporting(E_ALL);
              
           <?php endif; ?>
         </div>
-
 
 
         <?php if (!isset($_SESSION['logged_in'])):?>
@@ -165,13 +164,15 @@ error_reporting(E_ALL);
 
             <button type="submit" class="submit-btn" name="feedback-submit" >Submit Feedback</button>
           </form>
+           </div>
         <?php endif; ?>
-        </div>
+       
       </div>
+      </main>
 
       <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+    </div>
     <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>
      <!-- toast -->

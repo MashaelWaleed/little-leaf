@@ -59,11 +59,12 @@ if ($user_id) {
   </head>
 
   <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
        <!-- HEADER -->
             <?php 
            include(BASE_PATH . 'parts/nav.php'); 
       ?>
+      <main>
       <div class="page-header">
         <h2>Your Cart</h2>
         <p>
@@ -126,9 +127,10 @@ if ($user_id) {
         </button>
       </div>
       </section>
+      </main>
        <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+           </div>
 
     <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

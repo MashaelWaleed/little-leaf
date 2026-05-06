@@ -38,11 +38,12 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
     />
 </head>
 <body>
-    <main class="container fill-container scroll-page">
+    <div class="container fill-container scroll-page">
         <!-- HEADER -->
         <?php 
            include(BASE_PATH . 'parts/nav.php'); 
         ?>
+        <main>
         <div class="page-header">
             <h2>Finalize Your Sanctuary</h2>
             <p>Review your details before we prepare your plants.</p>
@@ -114,9 +115,10 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                 <p class="secure-note">🔒 Secure encrypted checkout</p>
             </aside>
         </div>
+        </main>
     <!-- SIMPLE FOOTER -->
       <?php include("../parts/footer.php")?>
-    </main>
+                    </div>
 
  <!-- 🔍 Floating Search Overlay -->
     <?php include("../parts/floatingSearch.php")?>

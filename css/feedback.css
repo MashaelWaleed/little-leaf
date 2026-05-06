@@ -1,6 +1,6 @@
 /* ================================== Feedback Page CSS ==================================*/
 
-.grid-layout {
+.grid-layout-feed {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 2rem;
@@ -9,24 +9,24 @@
   padding-bottom: 5rem;
 }
 
+.msg,
+.feedback-container {
+  padding: 20px;
+  width: 80%;
+  margin-top: 8rem;
+}
+
 .feedback-container {
   background-color: var(--secondary-color);
-  padding: 18px;
   border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08); /* Soft, premium shadow */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08);
   border: 3px solid rgba(86, 104, 54, 0.5);
-  width: 80%;
-  height: fit-content;
-  margin-top: 7rem;
 }
 
 .msg {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: fit-content;
-  margin-top: 8rem;
-  padding: 20px;
   justify-items: center;
   align-items: center;
 }
@@ -55,6 +55,7 @@
   margin: 2px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .comment-card {

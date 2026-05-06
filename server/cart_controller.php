@@ -21,7 +21,7 @@ if ($user_id) {
             $stmt = $pdo->prepare("INSERT INTO cart (user_id, plant_id, quantity) 
                                    VALUES (?, ?, 1) 
                                    ON DUPLICATE KEY UPDATE quantity = quantity + 1");
-            $stmt->execute([$user_id, $id]); // Fixed variable name
+            $stmt->execute([$user_id, $id]);
             break;
 
         case 'decrease':
@@ -36,24 +36,26 @@ if ($user_id) {
             break;
     }
 
-    // IMPORTANT: Fetch the new quantity and total from DB to send back to JS
-    $stmt = $pdo->prepare("SELECT quantity FROM cart WHERE user_id = ? AND plant_id = ?");
-    $stmt->execute([$user_id, $id]);
-    $row = $stmt->fetch();
-    $new_qty = $row ? $row['quantity'] : 0;
-    $stmtTotal = $pdo->prepare("SELECT SUM(quantity) as total FROM cart WHERE user_id = ?");
-    $stmtTotal->execute([$user_id]);
-    $total_items = $stmtTotal->fetch()['total'] ?? 0;
+    // Fetch the new quantity for the specific item
+    $stmtItem = $pdo->prepare("SELECT quantity FROM cart WHERE user_id = ? AND plant_id = ?");
+    $stmtItem->execute([$user_id, $id]);
+    $itemRow = $stmtItem->fetch();
+    $new_qty = $itemRow ? $itemRow['quantity'] : 0;
+
+    // Calculate the NEW Subtotal for the entire cart from DB
+    $stmtSum = $pdo->prepare("SELECT SUM(c.quantity * p.price) as subtotal 
+                              FROM cart c JOIN plants p ON c.plant_id = p.id 
+                              WHERE c.user_id = ?");
+    $stmtSum->execute([$user_id]);
+    $new_subtotal = $stmtSum->fetch()['subtotal'] ?? 0;
 
 } else {
     // --- GUEST: SESSION LOGIC ---
-    //If the user is new and doesn't have a basket yet, we give them an empty one ([])
     if (!isset($_SESSION['cart'])) { $_SESSION['cart'] = []; }
 
     switch ($action) {
         case 'add':
         case 'increase':
-            //This line is a shortcut. It says: "Look at the current quantity for this plant. If it’s not there, assume it's 0. Now add 1 to it."
             $_SESSION['cart'][$id] = ($_SESSION['cart'][$id] ?? 0) + 1;
             break;
         case 'decrease':
@@ -62,18 +64,34 @@ if ($user_id) {
             }
             break;
         case 'remove':
-            //It deletes that specific ID from the list entirely.
             unset($_SESSION['cart'][$id]);
             break;
     }
+    
     $new_qty = $_SESSION['cart'][$id] ?? 0;
-    $total_items = array_sum($_SESSION['cart']);
+
+    // Calculate the NEW Subtotal for Guest from Session
+    $new_subtotal = 0;
+    if (!empty($_SESSION['cart'])) {
+        $ids = array_keys($_SESSION['cart']);
+        $placeholders = implode(',', array_fill(0, count($ids), '?'));
+        $stmtPrice = $pdo->prepare("SELECT id, price FROM plants WHERE id IN ($placeholders)");
+        $stmtPrice->execute($ids);
+        while ($row = $stmtPrice->fetch()) {
+            $new_subtotal += $row['price'] * $_SESSION['cart'][$row['id']];
+        }
+    }
 }
 
-// NOW THIS ECHO USES THE CORRECT VARIABLES for each item
+// Shipping logic (match your checkout.php logic)
+$shipping = 0; 
+$new_total = $new_subtotal + $shipping;
+
+// Return JSON for Assignment 2 Requirements
 echo json_encode([
     'status' => 'success',
     'new_qty' => $new_qty,
-    'total_items' => $total_items
+    'new_subtotal' => number_format($new_subtotal),
+    'new_total' => number_format($new_total)
 ]);
 exit;

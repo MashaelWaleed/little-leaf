@@ -23,3 +23,17 @@ document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
       });
   });
 });
+
+window.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("search") === "open") {
+    const overlay = document.getElementById("searchOverlay");
+    const searchInput = document.getElementById("searchInput");
+
+    overlay.classList.add("active");
+    searchInput.focus();
+
+    // ✅ Remove the query param from URL (no reload)
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+});
