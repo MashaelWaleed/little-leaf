@@ -17,6 +17,8 @@
                 <option value="Tropical">Tropical</option>
                 <option value="Succulent">Succulent</option>
                 <option value="Hanging">Hanging</option>
+                <option value="Flowering">Flowering</option>
+                <option value="Low Light">Low Light</option>
             </select>
 
             <div class="priceFilter">

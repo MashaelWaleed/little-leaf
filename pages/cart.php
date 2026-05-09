@@ -75,6 +75,19 @@ if ($user_id) {
 
       <section class="cart-container">
       <div class="cart-items-list">
+        <!-- 🚨 CART ERROR BANNERS -->
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'out_of_stock'): ?>
+            <div class="alert alert-danger" style="padding: 15px; margin-bottom: 20px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+                <strong>Wait!</strong> One or more of the plants in your cart is currently out of stock or you have requested more than we have available. Please reduce the quantity.
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['error']) && $_GET['error'] === 'fail_order'): ?>
+            <div class="alert alert-danger" style="padding: 15px; margin-bottom: 20px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+                <strong>Error:</strong> We couldn't process your order at this time. Please try checking out again.
+            </div>
+        <?php endif; ?>
+       
           <!-- cart_products contain cart plant info -->
         <?php if (empty($cart_products)): ?>
           <div class="empty-card">  <img src="../images/logo.svg" alt="leaf icon"> <p>Your cart is empty </p> <a href="products.php">Go shopping!</a></div>

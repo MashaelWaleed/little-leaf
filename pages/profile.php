@@ -124,7 +124,22 @@ if (!isset($_SESSION['logged_in'])) {
           </form>
         </div>
 
+ 
+        <!-- Order History ----------------------- -->
+
         <div id="order-history" class="profile-section">
+                 <!-- 🔔 NOTIFICATION BANNERS -->
+                <?php if (isset($_GET['status']) && $_GET['status'] === 'order'): ?>
+                    <div class="alert alert-success" style="padding: 15px; margin-bottom: 20px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 4px;">
+                        <strong>Success!</strong> Your order has been placed successfully. 🌿
+                    </div>
+                <?php endif; ?>
+
+                <?php if (isset($_GET['email_err']) && $_GET['email_err'] === 'failed'): ?>
+                    <div class="alert alert-warning" style="padding: 15px; margin-bottom: 20px; background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 4px;">
+                        <strong>Notice:</strong> Your order was placed successfully, but we encountered an issue sending your confirmation email. 
+                    </div>
+                <?php endif; ?>
             <h3>Order History</h3>
             <div class="order-list">
                 <?php if (empty($orders)): ?>
@@ -148,12 +163,12 @@ if (!isset($_SESSION['logged_in'])) {
                                 <?= htmlspecialchars($order['items_summary']) ?>
                             </div>
                             
-                            <p class="order-total">Total: $<?= number_format($order['total_price'], 2) ?></p>
+                            <p class="order-total">Total: SAR <?= number_format($order['total_price'], 2) ?></p>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-        </div>  
+        </div>
 
 
         <!-- Saved Addresses -->
