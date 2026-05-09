@@ -1,3 +1,29 @@
+window.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+
+  // Check if URL contains ?search=open
+  if (params.get("search") === "open") {
+    const overlay = document.getElementById("searchOverlay");
+    const searchInput = document.getElementById("searchInput");
+
+    // Make sure the elements exist before using them
+    if (overlay && searchInput) {
+      // Wait a tiny moment to ensure all scripts and included HTML are ready
+      setTimeout(() => {
+        overlay.classList.add("active");
+        searchInput.focus();
+
+        // Remove ?search=open from the URL without reloading the page
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname,
+        );
+      }, 100);
+    }
+  }
+});
+
 document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
   button.addEventListener("click", function () {
     const plantId = this.getAttribute("data-id");
@@ -22,18 +48,4 @@ document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
         console.error("Error:", error);
       });
   });
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("search") === "open") {
-    const overlay = document.getElementById("searchOverlay");
-    const searchInput = document.getElementById("searchInput");
-
-    overlay.classList.add("active");
-    searchInput.focus();
-
-    // ✅ Remove the query param from URL (no reload)
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
 });

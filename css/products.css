@@ -99,13 +99,20 @@
 }
 
 .noMatch {
+  margin: 0%;
   width: 100%;
   height: 300px;
   display: flex;
   justify-content: center;
+  align-content: center;
   align-items: center;
-  margin: 0rem 10rem;
 }
+
+.noMatch p{
+  color: var(--secondaryBrown-color);
+}
+
+
 
 /* --- MOBILE PHONES (Max width: 890px) --- */
 @media (max-width: 890px) {

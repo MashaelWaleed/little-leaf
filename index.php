@@ -57,12 +57,19 @@
             Login
         </button>
     <?php endif; ?>   
-
-     <?php if ((isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == true)&& $_SESSION['role'] === 'admin'): ?>
-        <button id="dashBtn" class="main-btn login-btn" onclick="window.location.href = '<?= BASE_URL ?>admin/dashboard.php'">
+    <?php if (
+        isset($_SESSION['logged_in'], $_SESSION['role']) &&
+        $_SESSION['logged_in'] === true &&
+        $_SESSION['role'] === 'admin'
+    ): ?>
+        <button
+            id="dashBtn"
+            class="main-btn login-btn"
+            onclick="window.location.href='<?= BASE_URL ?>admin/dashboard.php'"
+        >
             Dashboard
         </button>
-    <?php endif; ?> 
+    <?php endif; ?>
 
         </div>
       </div>

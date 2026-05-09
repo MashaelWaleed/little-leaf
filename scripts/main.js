@@ -72,7 +72,7 @@ function updateUI(plants) {
   resultsContainer.innerHTML = ""; // Clear current plants
 
   if (plants.length === 0) {
-    resultsContainer.innerHTML = "<div class='noMatch'><p> No botanical companions found. 🥀</p></div>";
+    resultsContainer.innerHTML = "<div class='noMatch'></div><div class='noMatch'> <p> No botanical companions found. 🥀</p> </div> <div class='noMatch'></div";
     return;
   }
 
