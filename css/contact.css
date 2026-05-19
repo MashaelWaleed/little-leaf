@@ -78,18 +78,11 @@
   margin-bottom: 0.3rem;
 }
 
-.contact-elegant-form input,
-.contact-elegant-form textarea {
-  padding: 0.6rem 1rem; /* Slightly thinner padding */
-  border-radius: 8px;
-  border: 1px solid var(--primary-color); /* Removes harsh borders */
-}
-
-.contact-elegant-form input:focus,
-.contact-elegant-form textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(91, 107, 64, 0.15);
+/* Visual feedback for the button when the form is incomplete */
+.form-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* --- MOBILE PHONES (Max width: 1225px) --- */

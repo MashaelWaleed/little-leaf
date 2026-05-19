@@ -91,9 +91,9 @@
                 <input
                   type="email"
                   placeholder="hello@example.com"
-                  required
                   name="email"
                   id="email"
+                  required
                 />
               </div>
 
@@ -101,10 +101,10 @@
                 <label for="password">Password</label>
                 <input
                   type="password"
-                  placeholder="••••••••"
-                  required
                   name="password"
                   id="password"
+                  placeholder="••••••••"
+                  required
                 />
               </div>
 
@@ -131,16 +131,24 @@
                     placeholder="Your First Name"
                     name="fName"
                     id="fName"
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[A-Za-z]+" 
+                    title="Letters only, please!"
                     required
                   />
                 </div>
                 <div class="form-group">
-                  <label for="fName">Last Name</label>
+                  <label for="lName">Last Name</label>
                   <input
                     type="text"
                     placeholder="Your Last Name"
                     name="lName"
                     id="lName"
+                    minlength="2"
+                    maxlength="30"
+                    pattern="[A-Za-z]+" 
+                    title="Letters only, please!"
                     required
                   />
                 </div>
@@ -163,9 +171,11 @@
                   type="password"
                   id="password"
                   name="password"
-                  placeholder="••••••••"
+                  placeholder="Min. 8 characters"
+                  minlength="8"
                   required
                 />
+                <small class="form-hint">Must be at least 8 characters.</small>
               </div>
 
               <button class="login-btn" name="register_submit" type="submit">Sign Up</button>

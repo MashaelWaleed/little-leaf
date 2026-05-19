@@ -2,7 +2,7 @@
 session_start();
 require_once('db_connect.php');
 
-// 1. Authentication & Role-Based Access Control (7 Marks)
+// 1. Authentication & Role-Based Access Control
 if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'admin') {
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized access blocked.']);
     exit;
@@ -22,27 +22,27 @@ try {
             $image_name = null;
             $stock = $_POST['stock_quantity'] ?? 0; // Capture the new field
 
-            // --- 2. File Upload System (6 Marks) ---
+            // --- 2. File Upload System  ---
             if (isset($_FILES['plant_image']) && $_FILES['plant_image']['error'] === UPLOAD_ERR_OK) {
                 $file = $_FILES['plant_image'];
                 $file_size = $file['size'];
                 $file_tmp = $file['tmp_name'];
                 $file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 
-                // Validate File Type [cite: 36]
+                // Validate File Type
                 $allowed = ['jpg', 'jpeg', 'png', 'pdf'];
                 if (!in_array($file_ext, $allowed)) {
                     echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only JPG, PNG, and PDF allowed.']);
                     exit;
                 }
 
-                // Validate File Size (Limit: 2MB) [cite: 36]
+                // Validate File Size (Limit: 2MB) 
                 if ($file_size > 2 * 1024 * 1024) {
                     echo json_encode(['status' => 'error', 'message' => 'File too large. Maximum size is 2MB.']);
                     exit;
                 }
 
-                // Security: Unique naming [cite: 35, 36]
+                // Security: Unique naming 
                 $image_name = time() . '_' . uniqid() . '.' . $file_ext;
                 $upload_path = '../images/products/' . $image_name;
 
@@ -52,7 +52,7 @@ try {
                 }
             }
 
-            // --- 3. Database Operations (4 Marks) --- 
+            // --- 3. Database Operations --- 
             if ($action === 'add_plant') {
                $sql = "INSERT INTO plants (name, category, price, image, stock_quantity) VALUES (?, ?, ?, ?, ?)";
                 $stmt = $pdo->prepare($sql);
@@ -80,7 +80,7 @@ try {
                 $final_id = $plant_id;
             }
 
-            // Return full JSON response for AJAX UI update [cite: 28, 32]
+            // Return full JSON response for AJAX UI update 
             echo json_encode([
             'status' => 'success',
             'data' => [

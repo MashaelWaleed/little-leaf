@@ -111,6 +111,29 @@
   opacity: 0;
 }
 
+/* Character Counter Styling */
+.counter-container {
+  text-align: right;
+  margin-top: 5px;
+}
+
+#charCount {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.char-limit-reached {
+  color: #e74c3c !important;
+  font-weight: bold;
+}
+
+/* Optional label styling */
+.optional {
+  font-size: 0.7rem;
+  color: #aaa;
+  font-weight: normal;
+}
+
 @keyframes leafAppear {
   from {
     opacity: 0;
@@ -167,20 +190,6 @@ label {
   color: var(--secondaryBlue-color);
 }
 
-/* Inputs, Select, and Textarea */
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  box-sizing: border-box; /* Ensures padding doesn't affect width */
-  font-size: 14px;
-  background-color: var(--secondaryWhite-color);
-}
-
 /* Radio and Checkbox Styling */
 .radio-group,
 .checkbox-group {
@@ -211,12 +220,6 @@ input[type="radio"] {
   width: 18px; /* Make it slightly larger and easier to click */
   height: 18px;
   cursor: pointer;
-}
-select:focus,
-textarea:focus {
-  background-color: #ffffff;
-  outline: none;
-  border-color: var(--primary-color);
 }
 
 @media (max-width: 1260px) {

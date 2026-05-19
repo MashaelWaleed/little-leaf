@@ -66,6 +66,7 @@
 .sidebar-links li a.active {
   color: var(--primary-color);
   font-weight: 700;
+  padding-left: 40px;
   background-color: var(--secondaryWhite-color);
   border-left: 3px solid var(--primary-color); /* Highlights the current page */
 }
@@ -269,7 +270,7 @@
   background: white;
   padding: 2rem;
   border-radius: 8px;
-  width: 400px;
+  width: 500px;
   max-width: 90%;
 }
 .form-group {
@@ -279,12 +280,7 @@
   display: block;
   margin-bottom: 0.5rem;
 }
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
+
 
 .checkbox-group {
   display: flex;
@@ -297,23 +293,22 @@
   width: auto; /* Overrides the 100% width from your other inputs */
 }
 
-
 /*add card model*/
 .row {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 .expiry-inputs {
-    display: flex;
-    gap: 5px;
+  display: flex;
+  gap: 5px;
 }
 .expiry-inputs input {
-    width: 60px;
+  width: 60px;
 }
 /* Ensure the modal looks consistent with your address modal */
 .modal-overlay {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
 }
 
 @media (max-width: 1280px) {

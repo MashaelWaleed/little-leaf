@@ -1,8 +1,4 @@
 const openSearch = document.getElementById("openSearch");
-const overlay = document.getElementById("searchOverlay");
-const closeBtn = document.getElementById("closeBtn");
-const searchBtn = document.getElementById("searchBtn");
-const searchInput = document.getElementById("searchInput");
 
 // open overlay
 openSearch?.addEventListener("click", (e) => {
@@ -12,86 +8,8 @@ openSearch?.addEventListener("click", (e) => {
     window.location.href = "/store/pages/products.php?search=open";
     return; // stop execution
   }
-  overlay.classList.add("active");
-  searchInput.focus();
 });
 
-// close overlay when clicking outside
-overlay?.addEventListener("click", (e) => {
-  if (e.target === overlay) {
-    overlay.classList.remove("active");
-  }
-});
-
-// close overlay when clicking closeBtn
-closeBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  overlay.classList.remove("active");
-});
-
-const resultsContainer = document.querySelector(".product-grid"); // Target the grid on products.php
-
-// A unified function that reads ALL current filter states from the DOM
-const performSearch = async () => {
-  // 1. Always read the specific values from their IDs
-  const query = document.getElementById("searchInput")?.value.trim() || "";
-  const category = document.getElementById("categoryFilter")?.value || "";
-  const price = document.getElementById("priceFilter")?.value || "500";
-
-  // 2. Update the UI price label instantly (Live feedback)
-  const priceDisplay = document.getElementById("priceVal");
-  if (priceDisplay) priceDisplay.innerText = price;
-
-  // 3. Construct the URL with all 3 parameters
-  // We remove the "length >= 1" check so filters work even if search is empty
-  const url = `../server/search.php?q=${encodeURIComponent(query)}&category=${category}&price=${price}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-    updateUI(data); // Refresh your product grid
-  } catch (error) {
-    console.error("Live search error:", error);
-  }
-};
-
-// --- Listeners: These trigger the function above ---
-// "input" makes the search box and price slider LIVE (every keystroke/pixel)
-// "change" is better for the dropdown menu
-document
-  .getElementById("searchInput")
-  ?.addEventListener("input", performSearch);
-document
-  .getElementById("categoryFilter")
-  ?.addEventListener("change", performSearch);
-document
-  .getElementById("priceFilter")
-  ?.addEventListener("input", performSearch);
-
-function updateUI(plants) {
-  resultsContainer.innerHTML = ""; // Clear current plants
-
-  if (plants.length === 0) {
-    resultsContainer.innerHTML = "<div class='noMatch'></div><div class='noMatch'> <p> No botanical companions found. 🥀</p> </div> <div class='noMatch'></div";
-    return;
-  }
-
-  // Loop through JSON and build new HTML cards
-  plants.forEach((plant) => {
-    const card = `
-            <div class="product-card">
-                <div class="product-image-bg">
-                    <img src="../images/products/${plant.image}" alt="${plant.name}" />
-                    <button class="add-to-cart-btn" data-id="${plant.id}">+</button>
-                </div>
-                <div class="product-info">
-                    <h3>${plant.name}</h3>
-                    <p class="price">${plant.price} SAR</p>
-                </div>
-            </div>`;
-    resultsContainer.insertAdjacentHTML("beforeend", card);
-  });
-}
 
 // --- Hamburger Menu Toggle ---
 const hamburger = document.getElementById("hamburger");

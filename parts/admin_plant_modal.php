@@ -19,10 +19,14 @@
             <div class="form-group">
                 <label for="field-province">Category</label>
                 <select name="category" id="field-province" required>
-                    <option value="Indoor">Indoor</option>
-                    <option value="Tropical">Tropical</option>
-                    <option value="Succulent">Succulent</option>
-                    <option value="Hanging">Hanging</option>
+                        <option value="Indoor">Indoor</option>
+                        <option value="Outdoor">Outdoor</option>
+                        <option value="Trees">Trees</option>
+                        <option value="Tropical">Tropical</option>
+                        <option value="Succulent">Succulent</option>
+                        <option value="Hanging">Hanging</option>
+                        <option value="Flowering">Flowering</option>
+                        <option value="Low Light">Low Light</option>
                 </select>
             </div>
 

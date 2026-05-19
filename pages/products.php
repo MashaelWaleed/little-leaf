@@ -53,7 +53,7 @@ $plants = $stmt->fetchAll();
           </div>
           <div class="product-info">
             <h3><?= $plant['name'] ?></h3>
-            <p class="price"><?= $plant['price'] ?></p>
+            <p class="price"><?= $plant['price'] ?> SAR</p>
           </div>
         </div>
  <?php endforeach; ?>

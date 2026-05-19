@@ -80,6 +80,9 @@ if (!isset($_SESSION['logged_in'])) {
                   id="firstName"
                   name="fName"
                   placeholder="e.g. Jane"
+                  required 
+                  minlength="2" 
+                  pattern="[A-Za-z\s]+"
                   value="<?= htmlspecialchars($_SESSION['user_fname']) ?>" 
                 />
               </div>
@@ -90,6 +93,9 @@ if (!isset($_SESSION['logged_in'])) {
                   id="lastName"
                   name="lName"
                   placeholder="e.g. Doe"
+                  required
+                  minlength="2"
+                  pattern="[A-Za-z\s]+"
                   value="<?= htmlspecialchars($_SESSION['user_lname']) ?>"
                 />
               </div>
@@ -258,25 +264,38 @@ if (!isset($_SESSION['logged_in'])) {
 
             <div class="form-group">
                 <label>Cardholder Name</label>
-                <input type="text" name="cardholder_name" required placeholder="Jane Doe">
+                <input type="text" name="cardholder_name" placeholder="Jane Doe" required minlength="3" pattern="^[A-Za-z\s'-]+$" title="Please enter the cardholder's name.">
             </div>
 
             <div class="form-group">
                 <label>Card Number</label>
-                <input type="text" id="card-num-input" maxlength="16" required placeholder="1234 5678 9101 1121">
+                <input type="text" id="card-num-input" name="card_number" inputmode="numeric" 
+                       pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" 
+                    maxlength="19" 
+                    required 
+                    placeholder="1234 5678 9101 1121"
+                    title="Please enter a valid 16-digit card number.">
             </div>
 
             <div class="row">
                 <div class="form-group">
-                    <label>Expiry (MM/YY)</label>
+                    <label>Expiry (MM/YYYY)</label>
                     <div class="expiry-inputs">
-                        <input type="number" name="exp_month" id="exp_month" placeholder="MM" min="1" max="12" required>
-                        <input type="number" name="exp_year" id="exp_year" placeholder="YYYY" min="2026" max="2040" required>
+                        <input type="text" name="exp_month" id="exp_month" placeholder="MM"inputmode="numeric"
+                            placeholder="MM" 
+                            pattern="(0[1-9]|1[0-2])"
+                            maxlength="2"
+                            required>
+                        <input type="text" name="exp_year" id="exp_year" placeholder="YYYY" inputmode="numeric"
+                            placeholder="YYYY" 
+                            pattern="[0-9]{4}"
+                            maxlength="4"
+                            required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>CVV</label>
-                    <input type="text" maxlength="3" placeholder="123" required>
+                   <input type="text" name="cvv" pattern="[0-9]{3}" maxlength="3" inputmode="numeric" placeholder="123" required>
                 </div>
             </div>
 
@@ -295,56 +314,94 @@ if (!isset($_SESSION['logged_in'])) {
     </div>
 </div> 
               
+<!-- address modal -->
+<div id="address-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <h3 id="modal-title">Add New Address</h3>
+    <form id="address-form">
+      <input type="hidden" id="address-id" name="address_id" value="">
+      <input type="hidden" id="form-action" name="action" value="add">
 
-   
-   <!--address modal -->
-   <div id="address-modal" class="modal-overlay" style="display:none;">
-      <div class="modal-content">
-          <h3 id="modal-title">Add New Address</h3>
-          <form id="address-form">
-              <input type="hidden" id="address-id" name="address_id" value="">
-              <input type="hidden" id="form-action" name="action" value="add">
-
-              <div class="form-group">
-                  <label>Label (e.g., Home, Office)</label>
-                  <input type="text" name="label" id="field-label" required placeholder="Home">
-              </div>
-
-              <div class="form-group">
-                  <label>Full Name</label>
-                  <input type="text" name="full_name" id="field-name" required>
-              </div>
-
-              <div class="form-group">
-                  <label>Address Line</label>
-                  <input type="text" name="address_line" id="field-address" required placeholder="Street name, Apartment number">
-              </div>
-
-              <div class="form-group">
-                  <label>City</label>
-                  <input type="text" name="city" id="field-city" required>
-              </div>
-
-              <div class="form-group">
-                  <label>Province</label>
-                  <input type="text" name="province" id="field-province" required>
-              </div>
-              
-              <div class="form-group checkbox-group">
-                <label>
-                    <input type="checkbox" name="is_default" id="field-default" value="1">
-                    Set as default address
-                </label>
-              </div>
-
-              <div class="modal-actions">
-                  <button type="button" class="btn secondary" onclick="closeModal()">Cancel</button>
-                  <button type="submit" class="btn primary">Save Address</button>
-              </div>
-          </form>
+      <div class="form-group">
+        <label for="field-label">Label (e.g., Home, Office)</label>
+        <input 
+          type="text" 
+          name="label" 
+          id="field-label" 
+          required 
+          placeholder="e.g. Home"
+          minlength="2"
+          maxlength="20"
+        >
       </div>
-   </div>
 
+      <div class="form-group">
+        <label for="field-name">Full Name</label>
+        <input 
+          type="text" 
+          name="full_name" 
+          id="field-name" 
+          required 
+          placeholder="Recipient's Name"
+          minlength="3"
+          pattern="^[A-Za-z\s'-]+$"
+          title="Please enter a valid name (letters only)."
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="field-address">Address Line</label>
+        <input 
+          type="text" 
+          name="address_line" 
+          id="field-address" 
+          required 
+          placeholder="Street name, Building number"
+          minlength="5"
+          maxlength="100"
+        >
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="field-city">City</label>
+          <input 
+            type="text" 
+            name="city" 
+            id="field-city" 
+            required 
+            placeholder="e.g. Jeddah"
+            pattern="^[A-Za-z\s]+$"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="field-province">Province</label>
+          <input 
+            type="text" 
+            name="province" 
+            id="field-province" 
+            required 
+            placeholder="e.g. Makkah"
+            pattern="^[A-Za-z\s]+$"
+          >
+        </div>
+      </div>
+      
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" name="is_default" id="field-default" value="1">
+          Set as default address
+        </label>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn secondary" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn primary">Save Address</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 
    <!-- 🔍 Floating Search Overlay -->

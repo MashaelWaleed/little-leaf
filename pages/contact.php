@@ -53,7 +53,7 @@
         </div>
 
         <div class="contact-elegant-form">
-          <form class="contact-form" method="POST" action="../server/contact_process.php">
+          <form class="contact-form" method="POST" action="../server/contact_process.php" id="contactForm">
             <div class="form-row">
               <div class="form-group">
                 <label for="fName">First Name</label>
@@ -63,6 +63,10 @@
                   name="fName"
                   placeholder="Your First Name"
                   required
+                  minlength="2"
+                  maxlength="50"
+                  pattern="^[A-Za-z\s'-]+$"
+                  title="Please use letters only."
                 />
               </div>
               <div class="form-group">
@@ -73,6 +77,10 @@
                   name="lName"
                   placeholder="Your Last Name"
                   required
+                  minlength="2"
+                  maxlength="50"
+                  pattern="^[A-Za-z\s'-]+$"
+                  title="Please use letters only."
                 />
               </div>
             </div>
@@ -97,10 +105,13 @@
                 rows="4"
                 placeholder="write your message here..."
                 required
+                minlength="10"
+                maxlength="1000"
               ></textarea>
+              <small class="form-hint">Min. 10 characters</small>
             </div>
 
-            <button type="submit" class="btn form-btn" name="contact-submit">Send Message</button>
+            <button type="submit" class="btn form-btn" id="submitBtn" name="contact-submit">Send Message</button>
           </form>
         </div>
       </section>
@@ -115,6 +126,6 @@
     <script src="../scripts/main.js"></script>
     <!-- toast -->
     <?php require_once(BASE_PATH . 'parts/toast.php'); ?>
-
+       <script src="../scripts/contact.js"></script>
   </body>
 </html>

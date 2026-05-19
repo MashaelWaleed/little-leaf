@@ -1,0 +1,63 @@
+/* ==========================================================================
+   PRINT UTILITY STYLES
+   ========================================================================== */
+
+/* The Media Print Rule Engine */
+@media print {
+  /* 1. Hide non-printing UI elements instead of a blanket ban on body children */
+  nav,
+  footer,
+  sidebar,
+  header,
+  .no-print,
+  .buttons,
+  .page-header,
+  form {
+    display: none !important;
+  }
+
+  /* 2. Reset backgrounds and shadows for clean printing */
+  * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* 3. Ensure the table maintains its actual tabular display properties */
+  .schedule-table {
+    display: table !important;
+    width: 100%; /* Boosted to 100% to maximize paper space, use 90% if you need strict margins */
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+
+  .schedule-table tr {
+    display: table-row !important;
+    page-break-inside: avoid; /* Prevents a row from splitting awkwardly across pages */
+  }
+
+  .schedule-table td,
+  .schedule-table th {
+    display: table-cell !important;
+    text-align: center;
+    padding: 8px; /* Adds clean readability for print layout */
+  }
+
+  /* 4. Release application container locks so multi-page printing works */
+  html,
+  body,
+  .container,
+  .scroll-page,
+  main {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    position: static !important; /* Prevents absolute/fixed containers from clipping text */
+  }
+
+  /* 5. Protect botanical image avatars from being greyed out by the browser */
+  .schedule-table img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

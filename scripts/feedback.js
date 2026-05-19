@@ -30,3 +30,21 @@ loadMoreBtn.addEventListener("click", function () {
       loadMoreBtn.textContent = "Try Again";
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const feedbackForm = document.getElementById("feedbackForm");
+  const commentsArea = document.getElementById("comments");
+  const charCountDisplay = document.getElementById("charCount");
+
+  // 1. Real-time Character Counter
+  commentsArea.addEventListener("input", () => {
+    const length = commentsArea.value.length;
+    charCountDisplay.textContent = `${length} / 500`;
+
+    if (length >= 450) {
+      charCountDisplay.classList.add("char-limit-reached");
+    } else {
+      charCountDisplay.classList.remove("char-limit-reached");
+    }
+  });
+});

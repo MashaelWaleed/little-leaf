@@ -82,7 +82,7 @@ error_reporting(E_ALL);
         </div>
          <?php else: ?>
         <div class="feedback-container ">
-          <form action="../server/process_feedback.php" method="POST">
+          <form action="../server/process_feedback.php" method="POST" id="feedbackForm">
             <div class="form-group">
               <label for="name">Full Name</label>
               <input
@@ -91,6 +91,9 @@ error_reporting(E_ALL);
                 name="name"
                 placeholder="Enter your name (Will be shown to others)"
                 required
+                minlength="3"
+                pattern="^[A-Za-z\s'-]+$"
+                title="Please enter your full name (letters only)."
               />
             </div>
 
@@ -125,7 +128,7 @@ error_reporting(E_ALL);
             </div>
 
             <div class="form-group">
-              <label>Which services did you use?</label>
+              <label>Which services did you use? <span class="optional">(Optional)</span></label>
               <div class="checkbox-group">
                 <label
                   ><input type="checkbox" name="service[]" value="care-tips" />
@@ -158,8 +161,14 @@ error_reporting(E_ALL);
                 id="comments"
                 name="comments"
                 rows="4"
-                placeholder="Share Your Thoughts with Little Leaf"
+                placeholder="Share your thoughts..."
+                required
+                minlength="10"
+                maxlength="500"
               ></textarea>
+              <div class="counter-container">
+              <small id="charCount">0 / 500</small>
+              </div>
             </div>
 
             <button type="submit" class="submit-btn" name="feedback-submit" >Submit Feedback</button>
