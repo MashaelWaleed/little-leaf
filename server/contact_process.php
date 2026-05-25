@@ -37,14 +37,14 @@ if (isset($_POST['contact-submit'])) {
         ]);
 
         // 3. Send to Email (The simple PHP way)
-        $to = "mshaelalshwaf@gmail.com"; // store email
+        $to = "littleleafstore.1@gmail.com"; // store email
         $subject = "New Contact Message from $fname $lname";
         $body = "You received a new message:\n\n" .
                 "From: $fname $lname ($email)\n" .
                 "Message:\n$msg";
         $headers = "From: webmaster@littleleaf.com";
 
-        // Note: mail() often requires a live server to work (not local XAMPP)
+        //  mail() often requires a live server to work (not local XAMPP)
         mail($to, $subject, $body, $headers);
 
         // 4. Redirect with success

@@ -31,7 +31,9 @@ profileForm?.addEventListener("submit", async (e) => {
       }
     } else {
       // Handle specific errors based on message
-      if (result.message === "invalid_phone") {
+      if (result.message === "validation_failed") {
+        showGlobalToast(`${result.errors.join(" ")} 🥀`, "error");
+      } else if (result.message === "invalid_phone") {
         showGlobalToast(
           "Please enter a valid Saudi mobile number. 🥀",
           "error",
@@ -83,7 +85,7 @@ const observer = new IntersectionObserver((entries) => {
 
 sections.forEach((section) => observer.observe(section));
 
-//delete button--------------------------------------------------------
+//delete button---------------
 async function deleteAddress(addressId) {
   if (!confirm("Are you sure you want to delete this address?")) return;
 
@@ -200,16 +202,19 @@ document
           showGlobalToast("Address updated! 🌿", "success");
         }
         closeModal();
+      } else if (result.status === "validation_failed") {
+        // Join array items with a break to present errors cleanly inside a toast
+        const alertText = result.errors.join("\n");
+        showToast(alertText, "error");
       } else {
-        showGlobalToast("Could not save address. 🥀", "error");
+        showToast("Failed to complete action.", "error");
       }
     } catch (error) {
       console.error("Fetch error:", error);
       showGlobalToast("Server connection error. 🥀", "error");
     }
   });
-
-//payment model-------------------------------------------------------------------
+// --- Payment Methods Handling ---
 function openPaymentModal() {
   document.getElementById("payment-form").reset();
   document.getElementById("payment-modal").style.display = "flex";
@@ -242,6 +247,9 @@ document
           .insertAdjacentHTML("beforebegin", newCardHTML);
         closePaymentModal();
         showGlobalToast("Payment method saved! 💳", "success");
+      } else if (result.status === "validation_failed") {
+        const alertText = result.errors.join("\n");
+        showToast(alertText, "error");
       }
     } catch (error) {
       showGlobalToast("Error saving card. 🥀", "error");
@@ -309,4 +317,15 @@ function createPaymentCardHTML(data) {
                 <button class="text-btn danger" onclick="deleteCard(${data.id})">Remove</button>
             </div>
         </div>`;
+}
+// --- Input Formatting for Card Number ---
+const cardInput = document.getElementById("card-num-input");
+if (cardInput) {
+  cardInput.addEventListener("input", function (e) {
+    // Clear all non-digits
+    let value = e.target.value.replace(/\D/g, "");
+    // Group by 4 digits
+    let formattedValue = value.match(/.{1,4}/g)?.join(" ") || "";
+    e.target.value = formattedValue;
+  });
 }

@@ -11,6 +11,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!-- SEO Description -->
+      <meta
+        name="description"
+        content="Explore Little Leaf services including plant care guidance, delivery, customized plant arrangements, Gift options, and more. We are here to help you nurture your green space with ease and joy."
+      />
+
+      <!-- SEO Keywords -->
+      <meta
+        name="keywords"
+        content="Little Leaf services, plant care services, plant delivery, indoor plants, home decor services, eco-friendly lifestyle, gardening support, plant maintenance, Saudi Arabia plants"
+      />
     <title>Service | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/services.css" />

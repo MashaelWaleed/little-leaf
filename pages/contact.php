@@ -11,6 +11,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <!-- SEO Description -->
+    <meta
+      name="description"
+      content="Get in touch with Little Leaf for questions, support, plant care advice, or order inquiries. We are here to help you bring nature into your home."
+    />
+
+    <!-- SEO Keywords -->
+    <meta
+      name="keywords"
+      content="Contact Little Leaf, plant store support, customer service, indoor plants, home decor, plant care help, eco-friendly shop, Saudi Arabia plants, Little Leaf contact"
+    />
     <title>Contact | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/contact.css" />
@@ -47,7 +58,7 @@
 
             <div class="info-item">
               <strong>✉️ Email Us</strong>
-              <p>hello@littleleaf.com</p>
+              <p> <a href="mailto:littleleafstore.1@gmail.com">littleleafstore.1@gmail.com</a></p>
             </div>
           </address>
         </div>
@@ -65,9 +76,10 @@
                   required
                   minlength="2"
                   maxlength="50"
-                  pattern="^[A-Za-z\s'-]+$"
+                  pattern="[A-Za-z\s]+"
                   title="Please use letters only."
                 />
+                 <small class="form-hint">Min. 2 characters (Letters only)</small>
               </div>
               <div class="form-group">
                 <label for="lName">Last Name</label>
@@ -79,9 +91,10 @@
                   required
                   minlength="2"
                   maxlength="50"
-                  pattern="^[A-Za-z\s'-]+$"
+                  pattern="[A-Za-z\s]+"
                   title="Please use letters only."
                 />
+                 <small class="form-hint">Min. 2 characters (Letters only)</small> 
               </div>
             </div>
 

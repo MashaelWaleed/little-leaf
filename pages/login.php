@@ -137,6 +137,7 @@
                     title="Letters only, please!"
                     required
                   />
+                  <small class="form-hint">Min. 2 characters (Letters only)</small>
                 </div>
                 <div class="form-group">
                   <label for="lName">Last Name</label>
@@ -151,6 +152,7 @@
                     title="Letters only, please!"
                     required
                   />
+                  <small class="form-hint">Min. 2 characters (Letters only)</small>
                 </div>
               </div>
 

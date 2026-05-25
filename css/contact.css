@@ -47,9 +47,11 @@
   margin-bottom: 0.3rem;
 }
 
-.info-item p {
+.info-item p,
+.info-item a {
   color: var(--color-text);
   margin: 0;
+  text-decoration: none;
 }
 
 /* --- Right Column: The Form Card --- */

@@ -42,7 +42,17 @@ foreach ($plants as $row) {
         <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- SEO Description -->
+        <meta
+            name="description"
+            content="Manage your plant care routine with Little Leaf’s Care Schedule. Track watering, sunlight, and maintenance reminders to keep your plants healthy and thriving."
+        />
 
+        <!-- SEO Keywords -->
+        <meta
+            name="keywords"
+            content="Little Leaf care schedule, plant care tracker, watering reminders, indoor plant care, gardening schedule, plant maintenance, eco-friendly lifestyle, Saudi Arabia plants"
+        />
         <title>Care Schedule | Little Leaf</title>
 
         <link rel="stylesheet" href="<?= BASE_URL ?>global/main.css">

@@ -20,6 +20,17 @@ if (!isset($_SESSION['logged_in'])) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO Description -->
+    <meta
+      name="description"
+      content="Manage your Little Leaf profile, view your personal information, track your orders, and customize your shopping experience with your favorite plants and decor."
+    />
+
+    <!-- SEO Keywords -->
+    <meta
+      name="keywords"
+      content="Little Leaf profile, user account, customer profile, plant store account, order tracking, indoor plants, home decor, eco-friendly shopping, Saudi Arabia plants"
+    />
     <title>My profile | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/profile.css" />
@@ -85,6 +96,7 @@ if (!isset($_SESSION['logged_in'])) {
                   pattern="[A-Za-z\s]+"
                   value="<?= htmlspecialchars($_SESSION['user_fname']) ?>" 
                 />
+                <small class="form-hint">Min. 2 characters (Letters only)</small>
               </div>
               <div class="form-group">
                 <label for="lastName">Last Name</label>
@@ -98,6 +110,7 @@ if (!isset($_SESSION['logged_in'])) {
                   pattern="[A-Za-z\s]+"
                   value="<?= htmlspecialchars($_SESSION['user_lname']) ?>"
                 />
+                <small class="form-hint">Min. 2 characters (Letters only)</small>
               </div>
             </div>
 
@@ -343,8 +356,9 @@ if (!isset($_SESSION['logged_in'])) {
           id="field-name" 
           required 
           placeholder="Recipient's Name"
-          minlength="3"
-          pattern="^[A-Za-z\s'-]+$"
+          minlength="6"
+          maxlength="50"
+           pattern="[A-Za-z\s]+"
           title="Please enter a valid name (letters only)."
         >
       </div>

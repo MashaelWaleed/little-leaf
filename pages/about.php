@@ -11,6 +11,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO Description -->
+    <meta
+      name="description"
+      content="Learn more about Little Leaf, a modern plant and home decor store dedicated to bringing nature into your everyday life."
+    />s
+
+    <!-- SEO Keywords -->
+    <meta
+      name="keywords"
+      content="Little Leaf, plants, indoor plants, home decor, plant shop, eco-friendly, gardening, Jeddah plants, Saudi Arabia plants"
+    />
     <title>About Us | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/about.css" />

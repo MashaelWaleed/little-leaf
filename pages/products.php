@@ -19,6 +19,17 @@ $plants = $stmt->fetchAll();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!-- SEO Description -->
+      <meta
+        name="description"
+        content="Explore Little Leaf’s collection of indoor plants, decorative pots, and eco-friendly home decor. Find the perfect greenery to brighten your space."
+      />
+
+      <!-- SEO Keywords -->
+      <meta
+        name="keywords"
+        content="Little Leaf products, indoor plants, plant shop, home decor, decorative pots, eco-friendly products, buy plants online, gardening, Saudi Arabia plants, houseplants"
+      />
     <title>Our Products | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/products.css" />

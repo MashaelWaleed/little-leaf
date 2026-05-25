@@ -298,19 +298,23 @@ select:not(:placeholder-shown):valid {
 }
 
 /* Change hint color to red ONLY when input is invalid */
-input:not(:placeholder-shown):invalid + .form-hint {
+input:not(:placeholder-shown):invalid + .form-hint,
+textarea:not(:placeholder-shown):invalid + .form-hint,
+select:not(:placeholder-shown):invalid + .form-hint {
   color: var(--invalid-color);
   font-weight: bold;
+  visibility: visible;
 }
 
 /* 5. Validation Hint Text */
 .form-hint {
   font-size: 0.75rem;
-  margin-top: 4px;
-  display: block;
+  margin-top: 2px;
+  visibility: hidden; /* Hidden by default, shown only when invalid */
   transition: var(--input-transition);
   text-align: right;
   color: #888;
+  display: block;
 }
 
 /* Specific button style for the profile form */

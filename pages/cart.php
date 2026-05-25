@@ -47,6 +47,17 @@ if ($user_id) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- SEO Description -->
+    <meta
+      name="description"
+      content="View and manage your shopping cart at Little Leaf. Review your favorite plants, home decor items, and complete your purchase بسهولة وأمان."
+    />
+
+    <!-- SEO Keywords -->
+    <meta
+      name="keywords"
+      content="Little Leaf cart, shopping cart, indoor plants, plant store, home decor, eco-friendly shop, buy plants online, Saudi Arabia plants, cart page"
+    />
     <title>Your Cart | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/cart.css" />

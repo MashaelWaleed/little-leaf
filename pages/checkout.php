@@ -36,6 +36,17 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- SEO Description -->
+    <meta
+        name="description"
+        content="Complete your purchase securely at Little Leaf. Enter your shipping and payment details to order beautiful indoor plants and home decor items."
+    />
+
+    <!-- SEO Keywords -->
+    <meta
+        name="keywords"
+        content="Little Leaf checkout, secure checkout, online plant store, buy indoor plants, plant delivery, home decor shopping, eco-friendly store, Saudi Arabia plants"
+    />
     <title>Checkout | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/checkout.css">

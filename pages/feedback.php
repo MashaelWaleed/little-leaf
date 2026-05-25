@@ -19,6 +19,17 @@ error_reporting(E_ALL);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <!-- SEO Description -->
+      <meta
+        name="description"
+        content="Share your feedback with Little Leaf. Tell us about your shopping experience, plant quality, customer service, and suggestions to help us improve."
+      />
+
+      <!-- SEO Keywords -->
+      <meta
+        name="keywords"
+        content="Little Leaf feedback, customer reviews, plant store feedback, customer experience, indoor plants, home decor, eco-friendly store, Saudi Arabia plants, feedback form"
+      />
     <title>Feedback | Little Leaf</title>
     <link rel="stylesheet" href="../global/main.css" />
     <link rel="stylesheet" href="../css/feedback.css" />
@@ -91,10 +102,11 @@ error_reporting(E_ALL);
                 name="name"
                 placeholder="Enter your name (Will be shown to others)"
                 required
-                minlength="3"
-                pattern="^[A-Za-z\s'-]+$"
+                minlength="6"
+                pattern="[A-Za-z\s]+"
                 title="Please enter your full name (letters only)."
               />
+              <small class="form-hint">Min. 6 characters (Letters only)</small>
             </div>
 
             <div class="form-group">
