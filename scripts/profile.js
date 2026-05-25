@@ -222,22 +222,21 @@ function openPaymentModal() {
 function closePaymentModal() {
   document.getElementById("payment-modal").style.display = "none";
 }
+// Handle Payment Form Submission
 document
   .getElementById("payment-form")
   .addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const fullCardNum = document.getElementById("card-num-input").value;
-    const brand = fullCardNum.startsWith("5") ? "Mastercard" : "Visa";
 
-    formData.append("card_brand", brand);
-    formData.append("last4", fullCardNum.slice(-4));
+    // Grabs all values dynamically straight from the input elements
+    const formData = new FormData(e.target);
 
     try {
       const response = await fetch("../server/address_process.php", {
         method: "POST",
         body: formData,
       });
+
       const result = await response.json();
 
       if (result.status === "success") {
@@ -245,17 +244,22 @@ document
         document
           .querySelector("#payment-methods .add-new-card")
           .insertAdjacentHTML("beforebegin", newCardHTML);
+
         closePaymentModal();
+
+        // Fix: Use the standard showGlobalToast function for consistency
         showGlobalToast("Payment method saved! 💳", "success");
       } else if (result.status === "validation_failed") {
+        // Combines errors with clean line splits into your toast framework
         const alertText = result.errors.join("\n");
-        showToast(alertText, "error");
+        showGlobalToast(alertText, "error");
+      } else {
+        showGlobalToast("Failed to register card data. 🥀", "error");
       }
     } catch (error) {
-      showGlobalToast("Error saving card. 🥀", "error");
+      showGlobalToast("Error saving card. Server connection lost. 🥀", "error");
     }
   });
-
 async function deleteCard(cardId) {
   if (!confirm("Are you sure you want to delete this card?")) return;
 

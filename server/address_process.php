@@ -148,14 +148,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
             echo json_encode(['status' => $success ? 'success' : 'notDeleted']);
             break;
             
-        case 'add_payment':
-            $card_brand = $_POST['card_brand'] ?? 'Visa';
-            $last4 = $_POST['last4'] ?? '0000';
-            $exp_m = $_POST['exp_month'] ?? 0;
-            $exp_y = $_POST['exp_year'] ?? 0;
-            $holder = $_POST['cardholder_name'] ?? '';
+     case 'add_payment':
+            $errors = [];
+
+            // 1. Capture parameters sent by JavaScript and HTML Form
+            $holder     = trim($_POST['cardholder_name'] ?? '');
+            $raw_card   = trim($_POST['card_number'] ?? ''); // Captures raw card string
+            $exp_m      = intval($_POST['exp_month'] ?? 0);
+            $exp_y      = intval($_POST['exp_year'] ?? 0);
+            $cvv        = trim($_POST['cvv'] ?? '');
             $is_def_pay = isset($_POST['is_default']) ? 1 : 0;
 
+            // Strip spaces out to validate digits correctly
+            $clean_card = str_replace(' ', '', $raw_card);
+
+            // 2. SERVER VALIDATIONS (Matches HTML attributes)
+            if (strlen($holder) < 3 || !preg_match("/^[A-Za-z\s'-]+$/", $holder)) {
+                $errors[] = "Please enter a valid cardholder name.";
+            }
+
+            if (!preg_match("/^[0-9]{16}$/", $clean_card)) {
+                $errors[] = "Card number must be exactly 16 digits.";
+            }
+
+            if ($exp_m < 1 || $exp_m > 12) {
+                $errors[] = "Expiry month must be between 01 and 12.";
+            }
+
+            // Expiry Year Check (Enforces current year context bounds)
+            if ($exp_y < 2026) { 
+                $errors[] = "Expiry year cannot be in the past.";
+            } elseif ($exp_y == 2026 && $exp_m < intval(date('n'))) {
+                $errors[] = "This card has already expired.";
+            }
+
+            if (!preg_match("/^[0-9]{3}$/", $cvv)) {
+                $errors[] = "CVV code must be exactly 3 digits.";
+            }
+
+            // If validation fails, return errors to Toast immediately
+            if (!empty($errors)) {
+                echo json_encode([
+                    'status' => 'validation_failed',
+                    'errors' => $errors
+                ]);
+                break;
+            }
+
+            // 3. GENERATE RELIABLE METADATA FOR DATABASE
+            $last4 = substr($clean_card, -4); // Always extracts the exact final 4 digits cleanly
+            
+            // Determine Brand reliably
+            $card_brand = 'Visa';
+            if (str_starts_with($clean_card, '5')) {
+                $card_brand = 'Mastercard';
+            }
+
+            // 4. Default Payment Strategy Manager
             $countStmt = $pdo->prepare("SELECT COUNT(*) FROM user_payments WHERE user_id = ?");
             $countStmt->execute([$user_id]);
             if ($countStmt->fetchColumn() == 0) {
@@ -164,25 +213,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
                 $pdo->prepare("UPDATE user_payments SET is_default = 0 WHERE user_id = ?")->execute([$user_id]);
             }
 
+            // 5. Store data safely (Do NOT store full card or CVV!)
             $sql = "INSERT INTO user_payments (user_id, card_brand, last4, expiry_month, expiry_year, cardholder_name, is_default) 
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $pdo->prepare($sql);
             $success = $stmt->execute([$user_id, $card_brand, $last4, $exp_m, $exp_y, $holder, $is_def_pay]);
 
+            // 6. Return response back to your JS createPaymentCardHTML function
             echo json_encode([
                 'status' => $success ? 'success' : 'notAdded',
                 'data' => [
                     'id' => $pdo->lastInsertId(),
                     'card_brand' => $card_brand,
                     'last4' => $last4,
-                    'expiry_month' => $exp_m,
+                    'expiry_month' => sprintf("%02d", $exp_m), // Formats month safely to 2 digits (e.g. 5 -> 05)
                     'expiry_year' => $exp_y,
                     'cardholder_name' => $holder,
                     'is_default' => $is_def_pay
                 ]
             ]);
             break;
-
         case 'deleteCard':
             $card_id = $_POST['card_id'] ?? null; 
             $checkStmt = $pdo->prepare("SELECT is_default FROM user_payments WHERE id = ?");
