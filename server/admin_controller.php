@@ -18,95 +18,131 @@ try {
     switch ($action) {
         case 'add_plant':
         case 'edit_plant':
-            $name = $_POST['name'] ?? null;
-            $category = $_POST['category'] ?? null;
-            $price = $_POST['price'] ?? null;
+            // 1. Collect and Trim data inputs
+            $name     = trim($_POST['name'] ?? '');
+            $category = trim($_POST['category'] ?? '');
+            $price    = $_POST['price'] ?? null;
             $plant_id = $_POST['plant_id'] ?? null;
+            $stock    = $_POST['stock_quantity'] ?? 0;
             $image_name = null;
-            $stock = $_POST['stock_quantity'] ?? 0;
 
-            // Simple validation to ensure data exists
-            if (!$name || !$category || !$price) {
-                echo json_encode(['status' => 'error', 'message' => 'Missing required fields.']);
-                exit;
+            $errors = [];
+
+            // --- 2. ROBUST TEXT & NUMERIC VALIDATIONS ---
+            
+            if (empty($name)) {
+                $errors[] = "Plant name is required.";
+            } elseif (strlen($name) < 2 || strlen($name) > 100) {
+                $errors[] = "Plant name must be between 2 and 100 characters.";
             }
 
-            // --- File Upload System ---
+            if (empty($category)) {
+                $errors[] = "Category selection is required.";
+            }
+
+            if ($price === null || $price === '') {
+                $errors[] = "Price is required.";
+            } elseif (!is_numeric($price) || floatval($price) < 0) {
+                $errors[] = "Price must be a valid positive number.";
+            }
+
+            if (!is_numeric($stock) || intval($stock) < 0) {
+                $errors[] = "Stock quantity must be a non-negative whole number.";
+            }
+
+            if ($action === 'edit_plant' && empty($plant_id)) {
+                $errors[] = "Missing plant ID for update target.";
+            }
+
+            // --- 3. SECURED FILE UPLOAD SYSTEM ---
             if (isset($_FILES['plant_image']) && $_FILES['plant_image']['error'] === UPLOAD_ERR_OK) {
                 $file = $_FILES['plant_image'];
                 $file_size = $file['size'];
                 $file_tmp = $file['tmp_name'];
-                $file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
                 
-                // Validate File Type
-                $allowed = ['jpg', 'jpeg', 'png'];
-                if (!in_array($file_ext, $allowed)) {
-                    echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only JPG and PNG allowed.']);
-                    exit;
+                // Secure validation: Check actual contents, not just the string extension
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mime_type = finfo_file($finfo, $file_tmp);
+                finfo_close($finfo);
+
+                $allowed_mimes = [
+                    'image/jpeg' => 'jpg',
+                    'image/png'  => 'png'
+                ];
+
+                if (!array_key_exists($mime_type, $allowed_mimes)) {
+                    $errors[] = "Invalid image file type. Only real JPG and PNG images allowed.";
+                } else {
+                    $file_ext = $allowed_mimes[$mime_type];
                 }
 
                 // Validate File Size (Limit: 2MB) 
                 if ($file_size > 2 * 1024 * 1024) {
-                    echo json_encode(['status' => 'error', 'message' => 'File too large. Maximum size is 2MB.']);
-                    exit;
+                    $errors[] = "File size is too large. Maximum size allowed is 2MB.";
                 }
 
-                // Security: Unique naming 
-                $image_name = time() . '_' . uniqid() . '.' . $file_ext;
-                $upload_path = '../images/products/' . $image_name;
+                // Stop file processing early if text validations or image check failed
+                if (empty($errors)) {
+                    // Security: Unique name obfuscation
+                    $image_name = time() . '_' . uniqid() . '.' . $file_ext;
+                    $upload_path = '../images/products/' . $image_name;
 
-                if (!move_uploaded_file($file_tmp, $upload_path)) {
-                    echo json_encode(['status' => 'error', 'message' => 'Failed to move uploaded file.']);
-                    exit;
+                    if (!move_uploaded_file($file_tmp, $upload_path)) {
+                        $errors[] = "Failed to save uploaded file to disk.";
+                    }
                 }
             }
 
-            // --- Database Operations --- 
+            // If any batch validations failed, bail out and output them to Toasts
+            if (!empty($errors)) {
+                echo json_encode([
+                    'status' => 'validation_failed',
+                    'errors' => $errors
+                ]);
+                exit;
+            }
+
+            // --- 4. SECURED DATABASE OPERATIONS --- 
             if ($action === 'add_plant') {
                 $sql = "INSERT INTO plants (name, category, price, image, stock_quantity) VALUES (?, ?, ?, ?, ?)";
                 $stmt = $pdo->prepare($sql);
-                $stmt->execute([$name, $category, $price, $image_name ?? 'default.png', $stock]);
+                $stmt->execute([$name, $category, floatval($price), $image_name ?? 'default.png', intval($stock)]);
                 
                 $final_id = $pdo->lastInsertId();
                 $final_image = $image_name ?? 'default.png';
             } else {
                 // EDIT LOGIC
-                if (!$plant_id) {
-                    echo json_encode(['status' => 'error', 'message' => 'Missing plant ID for update.']);
-                    exit;
-                }
-
                 if ($image_name) {
                     $sql = "UPDATE plants SET name=?, category=?, price=?, stock_quantity=?, image=? WHERE id=?";
-                    $params = [$name, $category, $price, $stock, $image_name, $plant_id];
+                    $params = [$name, $category, floatval($price), intval($stock), $image_name, $plant_id];
                     $final_image = $image_name;
                 } else {
-                    // Fetch existing image if no new one is uploaded
+                    // Fetch existing image metadata safely
                     $stmtImg = $pdo->prepare("SELECT image FROM plants WHERE id = ?");
                     $stmtImg->execute([$plant_id]);
-                    $final_image = $stmtImg->fetchColumn();
+                    $final_image = $stmtImg->fetchColumn() ?: 'default.png';
 
                     $sql = "UPDATE plants SET name=?, category=?, price=?, stock_quantity=? WHERE id=?";
-                    $params = [$name, $category, $price, $stock, $plant_id];
+                    $params = [$name, $category, floatval($price), intval($stock), $plant_id];
                 }
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute($params);
                 $final_id = $plant_id;
             }
 
-            // Return full JSON response for AJAX UI update 
+            // Return clean JSON response context
             echo json_encode([
                 'status' => 'success',
                 'data' => [
                     'id' => $final_id,
                     'name' => $name,
                     'category' => $category,
-                    'price' => $price,
+                    'price' => floatval($price),
                     'image' => $final_image,
-                    'stock_quantity' => $stock
+                    'stock_quantity' => intval($stock)
                 ]
             ]);
-            exit; // Use exit instead of break to stop further execution cleanly
+            exit;
 
         case 'delete_plant':
             $plant_id = $_POST['plant_id'] ?? null;
@@ -124,6 +160,6 @@ try {
             exit;
     }
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    echo json_encode(['status' => 'error', 'message' => 'A system processing error occurred.']);
     exit;
 }

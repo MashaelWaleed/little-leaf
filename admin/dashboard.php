@@ -12,9 +12,10 @@ $plants = $stmt->fetchAll();
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard | Little Leaf</title>
-    <link rel="stylesheet" href="../global/main.css">
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../global/main.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
 </head>
 <body>
     <div class="container fill-container scroll-page">
@@ -41,15 +42,15 @@ $plants = $stmt->fetchAll();
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="admin-plant-list">
+               <tbody id="admin-plant-list">
                     <?php foreach ($plants as $plant): ?>
                     <tr data-id="<?= $plant['id'] ?>">
-                        <td><img src="../images/products/<?= $plant['image'] ?>" width="50"></td>
-                        <td><?= htmlspecialchars($plant['name']) ?></td>
-                        <td><?= htmlspecialchars($plant['category']) ?></td>
-                        <td><?= $plant['price'] ?> SAR</td>
-                        <td><?= $plant['stock_quantity'] ?></td>
-                        <td>
+                        <td data-label="Image"><img src="../images/products/<?= $plant['image'] ?>" width="50"></td>
+                        <td data-label="Name"><?= htmlspecialchars($plant['name']) ?></td>
+                        <td data-label="Category"><?= htmlspecialchars($plant['category']) ?></td>
+                        <td data-label="Price"><?= $plant['price'] ?> SAR</td>
+                        <td data-label="Quantity"><?= $plant['stock_quantity'] ?></td>
+                        <td data-label="Actions">
                             <button class="text-btn" onclick='editPlant(<?= json_encode($plant) ?>)'>Edit</button>
                             <button class="text-btn danger" onclick="deletePlant(<?= $plant['id'] ?>)">Delete</button>
                         </td>

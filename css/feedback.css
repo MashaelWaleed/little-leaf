@@ -223,7 +223,7 @@ input[type="radio"] {
 }
 
 @media (max-width: 1260px) {
-  .grid-layout {
+  .grid-layout-feed {
     grid-template-columns: 1fr;
     gap: 5rem;
     padding-bottom: 1rem;

@@ -87,10 +87,107 @@
   max-width: 90%;
 }
 
-/* Responsive Table for Admin Mobile Use */
+/* ================================== Responsive Phone View (Max 768px) ==================================*/
 @media (max-width: 768px) {
-  .schedule-table {
+  /* 1. Dashboard Layout Adjustments */
+  .admin-section {
+    padding: 0 4%;
+    margin: 1rem auto;
+  }
+
+  .admin-actions {
+    justify-content: center; /* Center your "+ Add New Plant" button on mobile */
+    margin-bottom: 1.5rem;
+  }
+
+  .main-btn {
+    width: 100%; /* Make button full width and easier to tap on phones */
+    padding: 12px;
+  }
+
+  /* 2. Break Table Structure into Stacked Blocks */
+  .schedule-table,
+  .schedule-table thead,
+  .schedule-table tbody,
+  .schedule-table th,
+  .schedule-table td,
+  .schedule-table tr {
     display: block;
-    overflow-x: auto;
+    width: 100% !important; /* Forces layout to drop column width rules */
+    box-sizing: border-box;
+  }
+
+  /* Hide the desktop row headers cleanly */
+  .schedule-table thead {
+    display: none;
+  }
+
+  /* 3. Transform Table Rows into Cards */
+  .schedule-table tbody tr {
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e5e5;
+  }
+
+  /* 4. Format Cells into Flex Fields */
+  .schedule-table td {
+    text-align: right !important; /* Pushes current data strings to the right */
+    padding: 10px 8px;
+    border-bottom: 1px dashed #f0f0f0;
+    position: relative;
+    padding-left: 45%; /* Keeps space available on the left for text labels */
+    font-size: 14px;
+    width: 100% !important;
+  }
+
+  /* Remove bottom dashed rule for clean card base look */
+  .schedule-table td:last-child {
+    border-bottom: none;
+    padding-top: 14px;
+  }
+
+  /* 5. Dynamically Inject Headers via data-labels */
+  .schedule-table td::before {
+    position: absolute;
+    left: 8px;
+    width: 40%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+    color: var(--primary-color, #2e7d32);
+    content: attr(data-label);
+  }
+
+  /* Special visual adjustments inside mobile scope layout blocks */
+  .schedule-table td img {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -4px;
+  }
+
+  /* Structure action buttons side-by-side inside cell view space */
+  .schedule-table td[data-label="Actions"] {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+  }
+
+  .schedule-table td[data-label="Actions"]::before {
+    margin-top: 4px; /* Center aligns label text to button block baseline */
+  }
+
+  /* 6. Admin Modal Phone View Corrections */
+  .modal-overlay {
+    padding: 15px;
+  }
+
+  .admin-modal .modal-content,
+  .modal-content {
+    width: 100% !important;
+    max-width: 100%;
+    padding: 1.5rem;
   }
 }

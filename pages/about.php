@@ -15,7 +15,7 @@
     <meta
       name="description"
       content="Learn more about Little Leaf, a modern plant and home decor store dedicated to bringing nature into your everyday life."
-    />s
+    />
 
     <!-- SEO Keywords -->
     <meta

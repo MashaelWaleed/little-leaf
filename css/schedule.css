@@ -61,3 +61,122 @@
   border-radius: 50%;
   border: 2px solid #e5e5e5;
 }
+
+/* By default on Desktop, hide the duplicate mobile data cells */
+.mobile-only-cell {
+  display: none;
+}
+
+/* ================================== Responsive Phone View (Max 768px) ==================================*/
+@media screen and (max-width: 768px) {
+  /* Force table layouts to act like single stacked block sections */
+  .schedule-table,
+  .schedule-table thead,
+  .schedule-table tbody,
+  .schedule-table th,
+  .schedule-table td,
+  .schedule-table tr {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .schedule-table {
+    width: 95%;
+    margin: auto;
+    margin-top: 15px;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* Hide the desktop grid header labels completely */
+  .schedule-table thead tr:nth-child(2) {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  /* Main Title Banner */
+  .table-title th {
+    font-size: 18px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  /* 🛠️ SHARED ROW FIX: Turn Day Section rows into standalone section titles */
+  .schedule-table tbody tr.day-section {
+    background: var(--secondaryGreen-color, #e8f5e9);
+    color: var(--primary-color, #2e7d32);
+    margin: 25px 0 10px 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .day-section td {
+    width: 100% !important;
+    padding: 12px !important;
+    text-align: center !important;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    display: block;
+  }
+
+  /* Make sure the dynamic data-labels don't show inside the green day separator */
+  .day-section td::before {
+    display: none !important;
+  }
+
+  /* Turn regular individual plant entries into standalone cards */
+  .schedule-table tbody tr:not(.day-section) {
+    background: white;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e5e5;
+  }
+
+  /* 🛠️ ROWSPAN SWITCH FIX: Make both desktop and mobile variant cells behave identically on phone screen */
+  .schedule-table tbody tr:not(.day-section) .mobile-only-cell {
+    display: block; /* Show cell on mobile */
+  }
+
+  .schedule-table tbody tr:not(.day-section) .desktop-only-cell {
+    rowspan: 1 !important; /* Cancel out the rowspan height spill over */
+  }
+
+  /* Format individual card field lines */
+  .schedule-table tbody tr:not(.day-section) td {
+    text-align: right;
+    padding: 10px 12px;
+    border-bottom: 1px dashed #f0f0f0;
+    position: relative;
+    padding-left: 45%;
+    font-size: 14px;
+  }
+
+  .schedule-table tbody tr:not(.day-section) td:last-child {
+    border-bottom: none;
+  }
+
+  /* Render our clean left labels dynamically */
+  .schedule-table tbody tr:not(.day-section) td::before {
+    position: absolute;
+    left: 12px;
+    width: 40%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: 700;
+    color: var(--primary-color, #2e7d32);
+    content: attr(data-label);
+  }
+
+  /* Image centering inside card container grid */
+  .schedule-table td img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

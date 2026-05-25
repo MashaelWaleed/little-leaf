@@ -415,11 +415,6 @@ input:-webkit-autofill:active {
   cursor: pointer;
 }
 
-/* Shake animation for empty searches */
-.shake-error {
-  animation: shake 0.4s;
-}
-
 @keyframes shake {
   0%,
   100% {
@@ -625,6 +620,16 @@ input:-webkit-autofill:active {
     height: 100vh;
     border-radius: 0; /* Remove rounded corners for full-screen mobile feel */
     overflow-y: auto; /* Allow scrolling inside the container on mobile */
+  }
+
+  .search-container {
+    display: block;
+    width: 250px;
+  }
+
+  .filter-controls {
+    padding: 20px;
+    display: block !important;
   }
 }
 

@@ -93,99 +93,99 @@ error_reporting(E_ALL);
         </div>
          <?php else: ?>
         <div class="feedback-container ">
-          <form action="../server/process_feedback.php" method="POST" id="feedbackForm">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Enter your name (Will be shown to others)"
-                required
-                minlength="6"
-                pattern="[A-Za-z\s]+"
-                title="Please enter your full name (letters only)."
-              />
-              <small class="form-hint">Min. 6 characters (Letters only)</small>
-            </div>
-
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
-
-            <div class="form-group">
-              <label>How would you rate your experience?</label>
-              <div class="radio-group">
-                <input type="radio" id="good" name="rating" value="good" required/>
-                <label for="good">Good</label>
-
+            <form action="../server/process_feedback.php" method="POST" id="feedbackForm">
+              <div class="form-group">
+                <label for="name">Full Name</label>
                 <input
-                  type="radio"
-                  id="average"
-                  name="rating"
-                  value="average"
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Enter your name (Will be shown to others)"
+                  required
+                  minlength="6"
+                  pattern="[A-Za-z\s]+"
+                  title="Please enter your full name (letters only)."
                 />
-                <label for="average">Average</label>
-
-                <input type="radio" id="poor" name="rating" value="poor" />
-                <label for="poor">Poor</label>
+                <small class="form-hint">Min. 6 characters (Letters only)</small>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label>Which services did you use? <span class="optional">(Optional)</span></label>
-              <div class="checkbox-group">
-                <label
-                  ><input type="checkbox" name="service[]" value="care-tips" />
-                  Plant Care Tips</label
-                >
-                <label
-                  ><input type="checkbox" name="service[]" value="shop" /> Plant
-                  Shop</label
-                >
-                <label
-                  ><input type="checkbox" name="service[]" value="gift" />
-                  Send a Gift
-                </label>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="preference">Content Preference</label>
-              <select id="preference" name="preference">
-                <option value="indoor">Indoor Plants</option>
-                <option value="outdoor">Outdoor Gardening</option>
-                <option value="succulents">Succulents & Cacti</option>
-                <option value="hydroponics">Hydroponics</option>
-              </select>
-            </div>
+              <div class="form-group">
+                <label>How would you rate your experience?</label>
+                <div class="radio-group">
+                  <input type="radio" id="good" name="rating" value="good" required/>
+                  <label for="good">Good</label>
 
-            <div class="form-group">
-              <label for="comments">Comments to share</label>
-              <textarea
-                id="comments"
-                name="comments"
-                rows="4"
-                placeholder="Share your thoughts..."
-                required
-                minlength="10"
-                maxlength="500"
-              ></textarea>
-              <div class="counter-container">
-              <small id="charCount">0 / 500</small>
+                  <input
+                    type="radio"
+                    id="average"
+                    name="rating"
+                    value="average"
+                  />
+                  <label for="average">Average</label>
+
+                  <input type="radio" id="poor" name="rating" value="poor" />
+                  <label for="poor">Poor</label>
+                </div>
               </div>
-            </div>
 
-            <button type="submit" class="submit-btn" name="feedback-submit" >Submit Feedback</button>
-          </form>
-           </div>
+              <div class="form-group">
+                <label>Which services did you use? <span class="optional">(Optional)</span></label>
+                <div class="checkbox-group">
+                  <label
+                    ><input type="checkbox" name="service[]" value="care-tips" />
+                    Plant Care Tips</label
+                  >
+                  <label
+                    ><input type="checkbox" name="service[]" value="shop" /> Plant
+                    Shop</label
+                  >
+                  <label
+                    ><input type="checkbox" name="service[]" value="gift" />
+                    Send a Gift
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="preference">Content Preference</label>
+                <select id="preference" name="preference">
+                  <option value="indoor">Indoor Plants</option>
+                  <option value="outdoor">Outdoor Gardening</option>
+                  <option value="succulents">Succulents & Cacti</option>
+                  <option value="hydroponics">Hydroponics</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="comments">Comments to share</label>
+                <textarea
+                  id="comments"
+                  name="comments"
+                  rows="4"
+                  placeholder="Share your thoughts..."
+                  required
+                  minlength="10"
+                  maxlength="500"
+                ></textarea>
+                <div class="counter-container">
+                <small id="charCount">0 / 500</small>
+                </div>
+              </div>
+
+              <button type="submit" class="submit-btn" name="feedback-submit" >Submit Feedback</button>
+            </form>
+          </div>
         <?php endif; ?>
        
       </div>

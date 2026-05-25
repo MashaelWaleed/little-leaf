@@ -91,33 +91,40 @@ foreach ($plants as $row) {
                             <th>Primary Task</th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        <?php foreach ($groupedPlants as $day => $plantsInDay): ?>
+                    <?php foreach ($groupedPlants as $day => $plantsInDay): ?>
                         <tr class="day-section">
                             <td colspan="5"><strong><?= $day ?> Care Routine</strong></td>
                         </tr>
-                            <?php foreach ($plantsInDay as $index => $row): ?>
-                            <tr>
-                                <td>
-                                    <img src="<?= BASE_URL ?>images/products/<?= $row['image'] ?>"
-                                    alt="<?= $row['name'] ?>"
-                                    style="width:50px;height:50px;object-fit:cover;border-radius:50%;">
-                                </td>
-                                <td><strong><?= $row['name'] ?></strong></td>
-                                <td><?= $row['category'] ?></td>
-                                <?php if ($index === 0): ?>
-                                    <td rowspan="<?= count($plantsInDay) ?>">
+                        <?php foreach ($plantsInDay as $index => $row): ?>
+                        <tr>
+                            <td data-label="Plant Image">
+                                <img src="<?= BASE_URL ?>images/products/<?= $row['image'] ?>"
+                                alt="<?= $row['name'] ?>"
+                                style="width:50px;height:50px;object-fit:cover;border-radius:50%;">
+                            </td>
+                            <td data-label="Plant Name"><strong><?= $row['name'] ?></strong></td>
+                            <td data-label="Category"><?= $row['category'] ?></td>
+
+                            <?php if ($index === 0): ?>
+                                <td data-label="Care Day" class="desktop-only-cell" rowspan="<?= count($plantsInDay) ?>">
                                     <?= $row['care']['Day'] ?>
-                                    </td>
-                                    <td rowspan="<?= count($plantsInDay) ?>">
+                                </td>
+                                <td data-label="Primary Task" class="desktop-only-cell" rowspan="<?= count($plantsInDay) ?>">
                                     <?= $row['care']['Task'] ?>
-                                    </td>
-                                <?php endif; ?>
-                            </tr>
-                            <?php endforeach; ?>
+                                </td>
+                            <?php else: ?>
+                                <td data-label="Care Day" class="mobile-only-cell">
+                                    <?= $row['care']['Day'] ?>
+                                </td>
+                                <td data-label="Primary Task" class="mobile-only-cell">
+                                    <?= $row['care']['Task'] ?>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
                         <?php endforeach; ?>
-                    </tbody>
+                    <?php endforeach; ?>
+                </tbody>
                 </table>    
                 </main>
                 <!-- SIMPLE FOOTER -->

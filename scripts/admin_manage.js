@@ -111,8 +111,11 @@ plantForm?.addEventListener("submit", async (e) => {
         closeModal();
       }
     }
-    if (result.status === "error") {
-      showToast(result.message || "Failed to save plant. 🥀", "error");
+    if (result.status === "validation_failed") {
+      showToast(
+        result.errors?.join(" ") || "Failed to complete the action. 🥀",
+        "error",
+      );
     }
   } catch (error) {
     showToast("Error processing request. 🥀", "error");
