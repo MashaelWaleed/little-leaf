@@ -35,6 +35,8 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8">
     <!-- SEO Description -->
     <meta
@@ -101,7 +103,7 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                                  <?= htmlspecialchars($savedAddress['city']) ?>, <?= htmlspecialchars($savedAddress['province']) ?><br />
                                  Saudi Arabia
                          </div>       
-                        <a href="profile.php#saved-addresses" class="edit-link">Change</a>
+                       <a href="profile.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>#saved-addresses" class="edit-link">Change</a>
                     </div>
                 </div>
                 <?php else: ?>
@@ -109,7 +111,7 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                         <h3>1. Shipping Address</h3>
                         <div class="address-box">
                             <p>No addresses found. Add one!</p>
-                            <a href="profile.php#saved-addresses" class="edit-link">Add</a>
+                            <a href="profile.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>#saved-addresses" class="edit-link">Add</a>
                         </div>
                      </div>
                 <?php endif; ?>
@@ -122,12 +124,12 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                         <input type="hidden" name="payment_method_id" form="checkout-form" value="<?= $savedCardInfo['id'] ?>">
                         
                         <span>💳 <?= htmlspecialchars($savedCardInfo['card_brand']) ?> ending in <?= htmlspecialchars($savedCardInfo['last4']) ?></span>
-                        <a href="profile.php#payment-methods" class="edit-link">Change</a>
+                        <a href="profile.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>#payment-methods" class="edit-link">Change</a>
                         
                     <?php else: ?>
                         
                         <p style="margin: 0;">No cards found. Add one!</p>
-                        <a href="profile.php#payment-methods" class="edit-link">Add</a>
+                        <a href="profile.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>#payment-methods" class="edit-link">Add</a>
                         
                     <?php endif; ?>
                 </div>

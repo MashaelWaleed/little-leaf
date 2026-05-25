@@ -202,6 +202,17 @@ document
           showGlobalToast("Address updated! 🌿", "success");
         }
         closeModal();
+
+        // Check the URL for a redirect parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTo = urlParams.get("redirect");
+
+        // 3. If it exists, send them back after 1.5 seconds so they can see the toast
+        if (redirectTo) {
+          setTimeout(() => {
+            window.location.href = redirectTo;
+          }, 1500);
+        }
       } else if (result.status === "validation_failed") {
         // Join array items with a break to present errors cleanly inside a toast
         const alertText = result.errors.join("\n");
@@ -244,11 +255,20 @@ document
         document
           .querySelector("#payment-methods .add-new-card")
           .insertAdjacentHTML("beforebegin", newCardHTML);
-
+        // Use the showGlobalToast function for consistency
+        showGlobalToast("Payment method saved! 💳", "success");
         closePaymentModal();
 
-        // Fix: Use the standard showGlobalToast function for consistency
-        showGlobalToast("Payment method saved! 💳", "success");
+        // 2. Check the URL for a redirect parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirectTo = urlParams.get("redirect");
+
+        // 3. If it exists, send them back after 1.5 seconds so they can see the toast
+        if (redirectTo) {
+          setTimeout(() => {
+            window.location.href = redirectTo;
+          }, 1500);
+        }
       } else if (result.status === "validation_failed") {
         // Combines errors with clean line splits into your toast framework
         const alertText = result.errors.join("\n");
