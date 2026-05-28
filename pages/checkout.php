@@ -97,6 +97,8 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                 <div class="checkout-section">
                     <h3>1. Shipping Address</h3>
                     <div class="address-box">
+                         <input type="hidden" name="address_id" form="checkout-form" value="<?= $savedAddress['id'] ?>">
+
                          <div class="info-card">
                                  <?= htmlspecialchars($savedAddress['full_name']) ?><br />
                                  <?= htmlspecialchars($savedAddress['address_line']) ?><br />
@@ -156,7 +158,7 @@ $total = $_SESSION["subtotal"] + $_SESSION["shipping"];
                     <span><?php echo $total; ?> SAR</span>
                 </div>
 
-                <form action="../server/place_order.php" method="POST">
+                <form id="checkout-form" action="../server/place_order.php" method="POST">
                     <button type="submit" class="place-order-btn" <?= (empty($savedAddress) || empty($savedCardInfo))? "disabled" : "" ?>>
                         Complete Purchase
                     </button>
