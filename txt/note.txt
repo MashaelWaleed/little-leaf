@@ -1,5 +1,0 @@
-1. you need to add addres id for each order.. as well as payment method 
-
-2. do the logic of payment method (done)
-
-3. update default in payment and show it in checkout

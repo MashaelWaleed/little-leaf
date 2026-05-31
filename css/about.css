@@ -1,4 +1,4 @@
-/* ================================== About Page Layout ==================================*/
+/* ================================== About Page CSS ==================================*/
 /* --- About Us: Moving Cards --- */
 .about-card-container {
   display: flex;
@@ -45,7 +45,7 @@
 /* The Hover Effect (Moving the card) */
 .moving-card:hover {
   transform: translateY(-15px); /* Floats the card up */
-  box-shadow: 0 15px 30px rgba(91, 107, 64, 0.15); /* Adds a soft green-tinted shadow */
+  box-shadow: 0 15px 30px rgba(91, 107, 64, 0.15); /* Adds a soft shadow */
 }
 
 .testimonial-card {

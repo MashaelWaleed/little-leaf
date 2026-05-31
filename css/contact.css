@@ -1,4 +1,4 @@
-/* ================================== Contact Page Layout ==================================*/
+/* ================================== Contact Page CSS ==================================*/
 
 /* --- Elegant Split Layout --- */
 .contact {
@@ -58,7 +58,7 @@
 .contact-elegant-form {
   background-color: var(--secondary-color);
   padding: 2.5rem;
-  border-radius: 16px; /* Slightly rounder for an elegant look */
+  border-radius: 16px; /* Slightly rounder */
   box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08); /* Soft, premium shadow */
   border: 3px solid rgba(86, 104, 54, 0.5);
 }

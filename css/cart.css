@@ -1,4 +1,4 @@
-/* ================================== Cart Page Layout ==================================*/
+/* ================================== Cart Page CSS ==================================*/
 .cart-container {
   display: flex;
   flex-direction: row;
@@ -124,7 +124,7 @@
   min-width: 300px;
   height: fit-content; /* Prevents it from stretching down the whole page */
   padding: 2.5rem;
-  text-align: left; /* Overriding the center text from your moving-card */
+  text-align: left; /* Overriding the center text from moving-card */
   background-color: var(--secondaryWhite-color);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(91, 107, 64, 0.08); /* Soft, premium shadow */

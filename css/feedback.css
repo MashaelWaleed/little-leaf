@@ -209,15 +209,15 @@ label {
 }
 
 input[type="checkbox"] {
-  accent-color: var(--secondaryGreen-color); /* Your Little Leaf Forest Green */
+  accent-color: var(--secondaryGreen-color); 
   width: 18px; /* Make it slightly larger and easier to click */
   height: 18px;
   cursor: pointer;
 }
 
 input[type="radio"] {
-  accent-color: var(--primary-color); /* Your Little Leaf Forest Green */
-  width: 18px; /* Make it slightly larger and easier to click */
+  accent-color: var(--primary-color); 
+  width: 18px; 
   height: 18px;
   cursor: pointer;
 }

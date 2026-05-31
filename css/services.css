@@ -1,3 +1,4 @@
+/* ================================== Services Page CSS ==================================*/
 .services-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -57,20 +58,18 @@
   width: 50%;
 }
 
-
 .back-to-top:hover {
   background-color: var(--secondaryBlue-color);
   transform: translateY(-3px);
 }
 
-
 /* --- MOBILE PHONES (Max width: 690px) --- */
 @media (max-width: 690px) {
   .services-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin: 0 15%;
-  margin-bottom: 10%;
-}
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 15%;
+    margin-bottom: 10%;
+  }
 }
