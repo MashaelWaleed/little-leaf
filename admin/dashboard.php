@@ -65,7 +65,8 @@ $plants = $stmt->fetchAll();
     <?php include('../parts/admin_plant_modal.php'); ?>
      <!-- toast -->
      <?php require_once(BASE_PATH . 'parts/toast.php'); ?>
-    
+
+    <script src="../scripts/main.js"></script>
     <script src="../scripts/admin_manage.js"></script>
 </body>
 </html>
