@@ -200,7 +200,7 @@ if (!isset($_SESSION['logged_in'])) {
               </div>
             <?php else: ?>
                 <?php foreach ($addresses as $addr): ?>
-                    <div class="info-card">
+                    <div class="info-card" id="address-card-<?= $addr['id'] ?>">
                         <?php if ($addr['is_default']): ?>
                             <span class="badge">Default</span>
                         <?php endif; ?>
@@ -242,7 +242,7 @@ if (!isset($_SESSION['logged_in'])) {
               </div>
             <?php else: ?>
               <?php foreach( $payments as $pay):?>
-                <div class="info-card">
+                <div class="info-card" id="payment-card-<?= $pay['id'] ?>">
                     <?php if ($pay['is_default']): ?>
                           <span class="badge">Default</span>
                     <?php endif; ?>

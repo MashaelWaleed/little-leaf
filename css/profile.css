@@ -321,6 +321,12 @@
   .sticky-sidebar {
     position: relative;
   }
+  
+  .info-grid {
+  display: flex;
+  flex-direction: column;
+  
+}
 
   /* --- Profile Sidebar Navigation --- */
   .profile-sidebar {
@@ -339,9 +345,17 @@
 
   .profile-section {
     min-width: 350px;
-    margin: 0 auto;
+    margin: 0 1% 1%;
   }
+
+  .modal-content {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 90%;
 }
+}
+
 
 @media (max-width: 400px) {
   .sidebar-links {

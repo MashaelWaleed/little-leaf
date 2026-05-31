@@ -373,7 +373,7 @@ input:-webkit-autofill:active {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 450px;
+  width: 500px;
   height: fit-content;
   margin-top: 2.5%;
 }
@@ -387,6 +387,7 @@ input:-webkit-autofill:active {
 .filter-controls {
   padding: 20px;
   display: flex;
+  align-items: center;
 }
 
 .categoryFilter {
@@ -403,7 +404,7 @@ input:-webkit-autofill:active {
 }
 
 .closeBtn-Container {
-  width: full;
+  width: 100%;
   display: flex;
   justify-content: end;
   padding: 0px;
@@ -415,17 +416,16 @@ input:-webkit-autofill:active {
   cursor: pointer;
 }
 
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  75% {
-    transform: translateX(5px);
-  }
+.priceFilter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#priceFilter {
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  margin-left: 1rem;
 }
 
 /* footer */
@@ -582,6 +582,10 @@ input:-webkit-autofill:active {
   .page-header p {
     width: 75%; /* Expand paragraph width so it doesn't wrap awkwardly */
   }
+
+  .priceFilter {
+    flex-direction: column;
+  }
 }
 
 /* --- TABLETS & SMALL LAPTOPS (Max width: 890px) --- */
@@ -621,21 +625,15 @@ input:-webkit-autofill:active {
     border-radius: 0; /* Remove rounded corners for full-screen mobile feel */
     overflow-y: auto; /* Allow scrolling inside the container on mobile */
   }
-
-  .search-container {
-    display: block;
-    width: 250px;
-  }
-
-  .filter-controls {
-    padding: 20px;
-    display: block !important;
-  }
 }
 
 @media (max-width: 715px) {
   .nav-links {
     gap: 8px; /* Reduce space between links */
+  }
+
+  .search-container {
+    width: 90%;
   }
 }
 
@@ -718,43 +716,6 @@ input:-webkit-autofill:active {
     gap: 1rem;
   }
 
-  /* Search Overlay Adjustments */
-  .search-box {
-    width: 90%; /* Fluid width instead of fixed 400px */
-    flex-direction: column; /* Stack input and button */
-    padding: 15px;
-  }
-
-  .search-box input {
-    width: 100%;
-    box-sizing: border-box; /* Ensures padding doesn't break width */
-  }
-
-  .search-box button {
-    width: 100%;
-  }
-
-  .filter-controls {
-    display: flex;
-    gap: 20px;
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 8px;
-    margin-top: 10px;
-    align-items: center;
-  }
-
-  .price-range {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #priceFilter {
-    accent-color: var(--primary-color);
-    cursor: pointer;
-  }
-
   /* Footer Adjustments */
   .footer {
     position: relative; /* Un-fix the footer so it sits naturally at the bottom of scrolled content */
@@ -772,5 +733,10 @@ input:-webkit-autofill:active {
     flex-direction: column; /* Stack email/phone and social links */
     gap: 10px;
     margin: 0 auto;
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

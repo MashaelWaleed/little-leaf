@@ -129,6 +129,7 @@ function openAddModal() {
   document.getElementById("modal-title").innerText = "Add New Address";
   // Default the checkbox to unchecked for new addresses
   document.getElementById("field-default").checked = false;
+  document.getElementById("field-default").disabled = false;
   document.getElementById("address-modal").style.display = "flex";
 }
 
@@ -192,13 +193,29 @@ document
               `button[onclick*="deleteAddress(${formData.get("address_id")})"]`,
             )
             .closest(".info-card");
+
+          // Update text based on new form data
           card.querySelector("h4").innerText = formData.get("label");
+
           card.querySelector("p").innerHTML = `
                     ${formData.get("full_name")}<br />
                     ${formData.get("address_line")}<br />
                     ${formData.get("city")}, ${formData.get("province")}<br />
                     Saudi Arabia
                 `;
+          // Update Default badge
+          if (formData.get("is_default") == 1) {
+            // Remove Default badge from all cards
+            document.querySelectorAll("#saved-addresses .badge").forEach((badge) => {
+              badge.remove();
+            });
+
+            // Add Default badge to this card
+            card.insertAdjacentHTML(
+              "afterbegin",
+              '<span class="badge">Default</span>',
+            );
+          }
           showGlobalToast("Address updated! 🌿", "success");
         }
         closeModal();
