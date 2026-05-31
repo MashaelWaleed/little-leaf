@@ -6,6 +6,9 @@ if (!isset($_SESSION['logged_in'])) { header("Location: ".BASE_URL."pages/login.
 include_once('db_connect.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
     try {
+        $address_id = $_POST['address_id'] ?? null;
+        $payment_method_id = $_POST['payment_method_id'] ?? null;
+
         $pdo->beginTransaction();
         
         // 1. Fetch item from cart AND include 'stock_quantity' from the plants table
@@ -30,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user_id'])) {
         }
 
         // 3. Create Order
-        $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price, status) VALUES (?, ?, 'Processing')");
-        $stmt->execute([$_SESSION['user_id'], $real_total]);
+        $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price, status, address_id, payment_method_id) VALUES (?, ?, 'Processing', ?, ?)");
+        $stmt->execute([$_SESSION['user_id'], $real_total, $address_id, $payment_method_id]);
         $orderId = $pdo->lastInsertId();
 
         // 4. Insert Order Items AND Update Stock

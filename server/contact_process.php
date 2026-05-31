@@ -13,11 +13,38 @@ if (!isset($pdo)) {
 }
 
 if (isset($_POST['contact-submit'])) {
-    // 1. Collect Data
-    $fname = htmlspecialchars($_POST['fName']);
-    $lname = htmlspecialchars($_POST['lName']);
-    $email = htmlspecialchars($_POST['email']);
-    $msg   = htmlspecialchars($_POST['msg']);
+    $errors = [];
+
+    $fname = trim($_POST['fName'] ?? '');
+    $lname = trim($_POST['lName'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $msg   = trim($_POST['msg'] ?? '');
+
+    if (!preg_match("/^[A-Za-z\s]{2,50}$/", $fname)) {
+        $errors[] = "Invalid first name";
+    }
+
+    if (!preg_match("/^[A-Za-z\s]{2,50}$/", $lname)) {
+        $errors[] = "Invalid last name";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email";
+    }
+
+    if (strlen($msg) < 10 || strlen($msg) > 1000) {
+        $errors[] = "Message must be between 10 and 1000 characters";
+    }
+
+    if (!empty($errors)) {
+        header("Location: ../pages/contact.php?error=validation");
+        exit();
+    }
+
+    $fname = htmlspecialchars($fname);
+    $lname = htmlspecialchars($lname);
+    $email = htmlspecialchars($email);
+    $msg   = htmlspecialchars($msg);
     
     // Get user_id if logged in, otherwise set to NULL
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;

@@ -11,10 +11,33 @@ require_once('db_connect.php');
 
 
 if (isset($_POST['register_submit'])) {
-    $fname = $_POST['fName'];
-    $lname = $_POST['lName'];
-    $email = $_POST['email'];
-    $raw_password = $_POST['password'];
+    $errors = [];
+
+    $fname = trim($_POST['fName'] ?? '');
+    $lname = trim($_POST['lName'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $raw_password = $_POST['password'] ?? '';
+
+    if (!preg_match("/^[A-Za-z]{2,30}$/", $fname)) {
+        $errors[] = "Invalid first name";
+    }
+
+    if (!preg_match("/^[A-Za-z]{2,30}$/", $lname)) {
+        $errors[] = "Invalid last name";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Invalid email";
+    }
+
+    if (strlen($raw_password) < 8) {
+        $errors[] = "Password must be at least 8 characters";
+    }
+
+    if (!empty($errors)) {
+        header("Location: ../pages/login.php?error=validation");
+        exit();
+    }
 
     // Create the secure hash
     $hashed_password = password_hash($raw_password, PASSWORD_DEFAULT);
