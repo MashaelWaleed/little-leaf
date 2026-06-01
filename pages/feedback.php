@@ -62,11 +62,11 @@ error_reporting(E_ALL);
                   <div class="feedback-list" id="feedback-list">
                       <?php 
                       while ($row = $stmt->fetch()) {
-                          echo '<div class="comment-card">';
+                          // Add data-user-id to the card container so JavaScript can find it later
+                          echo '<div class="comment-card" data-user-id="'.htmlspecialchars($row['user_id']).'">';
                           echo '<h1 class="comment-sender"><span> From </span>'.htmlspecialchars($row['user_name']).'</h1>';
                           echo '<p class="comment-content">'.htmlspecialchars($row['comments']).'</p>';
                           
-                          // Logic: Show updated_at if it exists, otherwise show created_at
                           if (!empty($row['updated_at'])) {
                               echo '<span class="comment-date">Updated: '.date('d/m/Y', strtotime($row['updated_at'])).'</span>';
                           } else {

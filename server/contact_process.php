@@ -1,5 +1,5 @@
 <?php 
-// Force PHP to show errors
+// Force PHP to show errors during development
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -7,12 +7,16 @@ error_reporting(E_ALL);
 session_start();
 include('../config.php'); 
 include('db_connect.php'); 
+
 // Check if PDO is actually connected
 if (!isset($pdo)) {
-    die("Database connection variable \$pdo is not defined. Check your config.php.");
+    echo json_encode(['status' => 'error', 'message' => 'Database configuration issue.']);
+    exit();
 }
 
 if (isset($_POST['contact-submit'])) {
+    // Standardize content output headers as clean JSON format data
+    header('Content-Type: application/json');
     $errors = [];
 
     $fname = trim($_POST['fName'] ?? '');
@@ -21,23 +25,27 @@ if (isset($_POST['contact-submit'])) {
     $msg   = trim($_POST['msg'] ?? '');
 
     if (!preg_match("/^[A-Za-z\s]{2,50}$/", $fname)) {
-        $errors[] = "Invalid first name";
+        $errors[] = "Invalid first name layout.";
     }
 
     if (!preg_match("/^[A-Za-z\s]{2,50}$/", $lname)) {
-        $errors[] = "Invalid last name";
+        $errors[] = "Invalid last name layout.";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Invalid email";
+        $errors[] = "Invalid email format.";
     }
 
     if (strlen($msg) < 10 || strlen($msg) > 1000) {
-        $errors[] = "Message must be between 10 and 1000 characters";
+        $errors[] = "Message must be between 10 and 1000 characters.";
     }
 
+    // Return list of errors natively via AJAX instead of redirection URLs
     if (!empty($errors)) {
-        header("Location: ../pages/contact.php?error=validation");
+        echo json_encode([
+            'status' => 'error', 
+            'message' => implode(" ", $errors)
+        ]);
         exit();
     }
 
@@ -46,11 +54,10 @@ if (isset($_POST['contact-submit'])) {
     $email = htmlspecialchars($email);
     $msg   = htmlspecialchars($msg);
     
-    // Get user_id if logged in, otherwise set to NULL
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
     try {
-        // 2. Store in Database
+        // Store inside Database
         $sql = "INSERT INTO contact_messages (user_id, first_name, last_name, email, message) 
                 VALUES (:user_id, :fname, :lname, :email, :msg)";
         
@@ -63,23 +70,28 @@ if (isset($_POST['contact-submit'])) {
             ':msg'     => $msg
         ]);
 
-        // 3. Send to Email (The simple PHP way)
-        $to = "littleleafstore.1@gmail.com"; // store email
+        // Send to Email
+        $to = "littleleafstore.1@gmail.com"; 
         $subject = "New Contact Message from $fname $lname";
         $body = "You received a new message:\n\n" .
                 "From: $fname $lname ($email)\n" .
                 "Message:\n$msg";
         $headers = "From: webmaster@littleleaf.com";
 
-        //  mail() often requires a live server to work (not local XAMPP)
-        mail($to, $subject, $body, $headers);
+        @mail($to, $subject, $body, $headers);
 
-        // 4. Redirect with success
-        header("Location: ../pages/contact.php?status=sent");
+        // Success JSON Payload
+        echo json_encode([
+            'status' => 'success', 
+            'message' => 'Thank you! Your green query message has been submitted successfully.'
+        ]);
         exit();
 
     } catch (PDOException $e) {
-        header("Location: ../pages/contact.php?error=error");
+        echo json_encode([
+            'status' => 'error', 
+            'message' => 'Database process error. Please try again later.'
+        ]);
         exit();
     }
 }

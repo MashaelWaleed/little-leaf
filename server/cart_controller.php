@@ -83,7 +83,7 @@ if ($user_id) {
     }
 }
 
-// Shipping logic (match your checkout.php logic)
+// Shipping logic 
 $shipping = 0; 
 $new_total = $new_subtotal + $shipping;
 
